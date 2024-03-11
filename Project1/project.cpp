@@ -23,10 +23,11 @@ using namespace std;
      int ratingCount;
  };
 
- class ProductCart: Product{
+ class ProductCart: public Product{
  public:
 	 int quantity;
-     string loation;
+     string userId;
+     string location;
 
 
  };
@@ -49,6 +50,9 @@ using namespace std;
 
 
  int parseProducts(Response response, std::vector<Product>& products) ;
+ int parseProductsCart(Response response, std::vector<ProductCart>& products);
+ int getData();
+
 
 // Callback function to write received data into a Response object
  size_t write_callback(void* contents, size_t size, size_t nmemb, Response* response) {
@@ -57,7 +61,7 @@ using namespace std;
      return total_size;
  }
 
- int data() {
+ int getData() {
      CURL* curl = curl_easy_init();
      vector<Product> products;
 
@@ -79,12 +83,11 @@ using namespace std;
              // Now response.getData() contains the received data, you can store/process it further
              std::cout << "Received data: " << response.getData() << std::endl;
          }
-         system("cls");
 	    cout << "data received successfully" << endl<<endl<<endl;
+
          parseProducts(response, products);
-
-
          curl_easy_cleanup(curl);
+
      }
      else {
          std::cerr << "Error initializing libcurl" << std::endl;
@@ -100,10 +103,12 @@ using namespace std;
          opt = 'n';
 
          switch (a) {
-         case 1:
+         case 1:        
+             getCartData("12134");
              cout << 1 << endl;
              break;
          case 2:
+             getData();
              cout << 2 << endl;
              break;
 
@@ -145,6 +150,48 @@ using namespace std;
      return 0;
  }
 
+
+ static int getCartData(string id)
+ {
+     CURL* curl = curl_easy_init();
+     vector<ProductCart> products;
+
+     if (curl)
+     {
+         string url = "http://localhost:3000/get-order/";
+         url.append(id);
+         Response response;
+         curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/get-order/12345");
+
+         // Set the write callback function
+         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+
+         // Pass the address of the Response object
+         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+
+         CURLcode res = curl_easy_perform(curl);
+         if (res != CURLE_OK)
+         {
+             std::cerr << "Error: " << curl_easy_strerror(res) << std::endl;
+         }
+         else
+         {
+             // Now response.getData() contains the received data, you can store/process it further
+             std::cout << "Received data: " << response.getData() << std::endl;
+         }
+          parseProductsCart(response, products);
+
+          curl_easy_cleanup(curl);
+          return  0;
+     }
+     else
+     {
+         std::cerr << "Error initializing libcurl" << std::endl;
+         return 1;
+     }
+ }
+
+
  int parseProducts(Response response, std::vector<Product>& products) {
      rapidjson::Document doc;
      doc.Parse(response.getData().c_str());
@@ -177,111 +224,44 @@ using namespace std;
  }
 
 
-//
-// #define curl_staticlib
-//
-//#include <iostream>
-//#include <string>
-//#include "curl/curl.h"
-//
-// Callback function to handle response data
-//size_t write_callback(void *contents, size_t size, size_t nmemb, std::string *response)
-//{
-//    size_t total_size = size * nmemb;
-//    response->append((char *)contents, total_size);
-//    return total_size;
-//}
-//
-// Class representing product details
-//class Product
-//{
-//public:
-//    std::string title;
-//    double price;
-//    std::string description;
-//    std::string image;
-//    std::string category;
-//};
-//
-// Class representing HTTP response
-//class Response
-//{
-//public:
-//    void appendData(const char *data, size_t size)
-//    {
-//        data_.append(data, size);
-//    }
-//
-//    std::string getData() const
-//    {
-//        return data_;
-//    }
-//
-//private:
-//    std::string data_;
-//};
-//
-// Function to perform a PUT request to update a product
-//CURLcode updateProduct(const Product &product, Response &response)
-//{
-//    CURL *curl = curl_easy_init();
-//    if (curl)
-//    {
-//         Set the URL for the PUT request
-//        curl_easy_setopt(curl, CURLOPT_URL, "https://fakestoreapi.com/products/7");
-//
-//         Specify the HTTP method as PUT
-//        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
-//
-//         Set the JSON payload
-//        std::string json_data = "{\"title\":\"" + product.title + "\",\"price\":" + std::to_string(product.price) +
-//                                ",\"description\":\"" + product.description + "\",\"image\":\"" + product.image +
-//                                "\",\"category\":\"" + product.category + "\"}";
-//        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json_data.c_str());
-//
-//         Set the write callback function to handle response data
-//        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
-//        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-//
-//         Perform the PUT request
-//        CURLcode res = curl_easy_perform(curl);
-//
-//         Clean up
-//        curl_easy_cleanup(curl);
-//
-//        return res;
-//    }
-//    else
-//    {
-//        std::cerr << "Failed to initialize libcurl" << std::endl;
-//        return CURLE_FAILED_INIT;
-//    }
-//}
-//
-//int main()
-//{
-//    Response response;
-//
-//     Create an instance of the Product class with the desired details
-//    Product product;
-//    product.title = "test product";
-//    product.price = 13.5;
-//    product.description = "lorem ipsum set";
-//    product.image = "https://i.pravatar.cc";
-//    product.category = "electronic";
-//
-//     Example usage of the updateProduct function
-//    CURLcode res = updateProduct(product, response);
-//
-//    if (res != CURLE_OK)
-//    {
-//        std::cerr << "Failed to perform request: " << curl_easy_strerror(res) << std::endl;
-//    }
-//    else
-//    {
-//         Request successful, print the response
-//        std::cout << "Response: " << response.getData() << std::endl;
-//    }
-//
-//    return 0;
-//}
+ int parseProductsCart(Response response, std::vector<ProductCart>& products)
+ {
+     rapidjson::Document doc;
+     doc.Parse(response.getData().c_str());
+
+     if (!doc.IsArray())
+     {
+        cout<< response.getData()<<endl;
+         std::cerr << "Invalid JSON format: Not an array" << std::endl;
+         return 1;
+     }
+
+     // Iterate over each product in the JSON array
+     for (rapidjson::SizeType i = 0; i < doc.Size(); ++i)
+     {
+         const rapidjson::Value& productJson = doc[i];
+
+         // Create a Product object and populate its fields
+         ProductCart product;
+         product.id = productJson["foodid"].GetString();
+         product.title = productJson["title"].GetString();
+         product.price = productJson["price"].GetDouble();
+         product.description = productJson["description"].GetString();
+         product.category = productJson["category"].GetString();
+         product.image = productJson["image"].GetString();
+         product.rating = productJson["rating"].GetDouble();
+         product.ratingCount = productJson["ratingCount"].GetInt();
+         product.quantity = productJson["quantity"].GetInt();
+         product.location = productJson["location"].GetString();
+
+         cout<< "Product id: " << product.id << endl;
+         cout<< "Product title: " << product.title << endl;
+         cout<< "Product price: " << product.price << endl;
+         cout<< "Product description: " << product.description << endl;
+
+         products.push_back(product);
+     }
+     cout<< "cart data received successfully" << endl;
+
+     return 0;
+ }

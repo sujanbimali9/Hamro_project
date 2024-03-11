@@ -68,8 +68,7 @@ void Signup() {
         outfile << username << " " << password << endl;
         cout << "Signup successful. User data stored in 'user_data.txt'." << endl;
         outfile.close();
-        getdata();
-
+        getData();
     }
     else {
         cerr << "Error opening the file." << endl;
