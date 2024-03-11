@@ -1,6 +1,7 @@
-#ifndef LISTDATA_H
-#define LISTDATA_H
+#ifndef	DATA_H
+#define DATA_H
 
-void ListData();
+ int data();
+
 
 #endif

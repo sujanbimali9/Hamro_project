@@ -5,13 +5,14 @@
 
 using namespace std;
 
-void LoginDialog();
+void loginDialog();
 void Signup();
 void Exit();
 bool checkCredentials(const string& username, const string& password);
 
 int main() {
     int value;
+
     system("cls");
 
     cout << "Please sign up or login" << endl;
@@ -23,7 +24,7 @@ int main() {
         Signup();
     }
     else if (value == 2) {
-        LoginDialog();
+        loginDialog();
     }
     else if (value == 3) {
         Exit();
@@ -35,7 +36,7 @@ int main() {
     return 0;
 }
 
-void LoginDialog() {
+void loginDialog() {
     string username, password;
 
     cout << "Enter username: ";
@@ -46,7 +47,6 @@ void LoginDialog() {
 
     if (checkCredentials(username, password)) {
         cout << "Login successful." << endl;
-        ListData();
     }
     else {
         cout << "Invalid username or password. Please try again." << endl;
@@ -68,6 +68,8 @@ void Signup() {
         outfile << username << " " << password << endl;
         cout << "Signup successful. User data stored in 'user_data.txt'." << endl;
         outfile.close();
+        getdata();
+
     }
     else {
         cerr << "Error opening the file." << endl;
@@ -76,7 +78,6 @@ void Signup() {
     cout << "\n" << endl;
 
 
-    ListData();
 }
 
 void Exit() {

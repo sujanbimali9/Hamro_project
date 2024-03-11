@@ -1,4 +1,5 @@
  #define CURL_STATICLIB
+ #include"ListData.h"
  #include <iostream>
  #include "curl/curl.h"
  #include <conio.h>
@@ -7,10 +8,7 @@
  #include "rapidjson/document.h"
 
 
-
-
- using namespace std;
-
+using namespace std;
 
 
  class Product {
@@ -59,7 +57,7 @@
      return total_size;
  }
 
- int main() {
+ int data() {
      CURL* curl = curl_easy_init();
      vector<Product> products;
 

@@ -1,10 +1,10 @@
 #include <iostream>
 #include <fstream>
-#include "ListData.h"
+#include<string.h>
 
 using namespace std;
 
-void ListData() {
+void listData() {
     string storedUsername, storedPassword;
     ifstream infile("user_data.txt");
 
