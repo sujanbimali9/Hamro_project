@@ -21,10 +21,16 @@
   <ItemGroup>
     <ClCompile Include="ListData.cpp" />
     <ClCompile Include="Login.cpp" />
-    <ClCompile Include="project.cpp" />
+    <ClCompile Include="apis.cpp" />
+    <ClCompile Include="Product.cpp" />
+    <ClCompile Include="Response.cpp" />
+    <ClCompile Include="ProductCart.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListData.h" />
+    <ClInclude Include="apis.h" />
+    <ClInclude Include="Product.h" />
+    <ClInclude Include="Response.h" />
+    <ClInclude Include="ProductCart.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

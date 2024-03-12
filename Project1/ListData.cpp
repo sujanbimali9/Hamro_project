@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void listData() {
+static void listData() {
     string storedUsername, storedPassword;
     ifstream infile("user_data.txt");
 

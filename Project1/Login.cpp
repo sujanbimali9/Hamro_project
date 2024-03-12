@@ -1,7 +1,10 @@
+#include "apis.h"
+#include "Product.h"
+
 #include<iostream>
 #include<fstream>
-#include "ListData.h"
 #include<Windows.h>
+
 
 using namespace std;
 
@@ -47,6 +50,14 @@ void loginDialog() {
 
     if (checkCredentials(username, password)) {
         cout << "Login successful." << endl;
+        cout<< "Press any key to continue..." << endl;
+        cin.get();
+        vector<Product> products ;
+        Product product;
+   
+       
+        
+
     }
     else {
         cout << "Invalid username or password. Please try again." << endl;
@@ -68,7 +79,6 @@ void Signup() {
         outfile << username << " " << password << endl;
         cout << "Signup successful. User data stored in 'user_data.txt'." << endl;
         outfile.close();
-        getData();
     }
     else {
         cerr << "Error opening the file." << endl;
