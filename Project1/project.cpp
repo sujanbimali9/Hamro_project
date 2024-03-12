@@ -6,6 +6,11 @@
  #include <Windows.h>
  #include <vector>
  #include "rapidjson/document.h"
+ #include<string>
+ #include "rapidjson/writer.h"
+ #include "rapidjson/stringbuffer.h"
+using namespace std;
+
 
 
 using namespace std;
@@ -26,9 +31,10 @@ using namespace std;
  class ProductCart: public Product{
  public:
 	 int quantity;
-     string userId;
+     string userid;
      string location;
-
+     string name;
+    
 
  };
 
@@ -52,6 +58,10 @@ using namespace std;
  int parseProducts(Response response, std::vector<Product>& products) ;
  int parseProductsCart(Response response, std::vector<ProductCart>& products);
  int getData();
+ //string serializeProductCart(const ProductCart& productCart);
+ string convertToJSON(const ProductCart& cart);
+ int orderFood();
+
 
 
 // Callback function to write received data into a Response object
@@ -104,7 +114,7 @@ using namespace std;
 
          switch (a) {
          case 1:        
-             getCartData("12134");
+             getCartData("12345");
              cout << 1 << endl;
              break;
          case 2:
@@ -158,8 +168,8 @@ using namespace std;
 
      if (curl)
      {
-         string url = "http://localhost:3000/get-order/";
-         url.append(id);
+         string url = "http://localhost:3000/get-order/12345";
+         cout<< url << endl;
          Response response;
          curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/get-order/12345");
 
@@ -189,6 +199,77 @@ using namespace std;
          std::cerr << "Error initializing libcurl" << std::endl;
          return 1;
      }
+ }
+
+
+
+ string convertToJSON(const ProductCart& cart) {
+     rapidjson::StringBuffer s;
+     rapidjson::Writer < rapidjson:: StringBuffer > writer(s);
+     writer.StartObject();
+     writer.Key("id"); writer.String(cart.id.c_str());
+     writer.Key("title"); writer.String(cart.title.c_str());
+     writer.Key("price"); writer.Double(cart.price);
+     writer.Key("description"); writer.String(cart.description.c_str());
+     writer.Key("category"); writer.String(cart.category.c_str());
+     writer.Key("image"); writer.String(cart.image.c_str());
+     writer.Key("rating"); writer.Double(cart.rating);
+     writer.Key("ratingCount"); writer.Int(cart.ratingCount);
+     writer.Key("quantity"); writer.Int(cart.quantity);
+     writer.Key("userid"); writer.String(cart.userid.c_str());
+     writer.Key("name"); writer.String(cart.name.c_str());
+     writer.Key("location"); writer.String(cart.location.c_str());
+     writer.EndObject();
+     return s.GetString();
+ }
+
+
+
+
+ int main() {
+
+     ProductCart product;
+     product.id = "12345";
+     product.title = "Pizza";
+     product.price = 9.99;
+     product.description = "Delicious pizza";
+     product.category = "Food";
+     product.image = "pizza.jpg";
+     product.rating = 4.5;
+     product.ratingCount = 100;
+     product.quantity = 2;
+     product.userid = "user123";
+     product.name = "sujan";
+     product.location = "Location";
+     CURL* curl;
+     CURLcode res;
+     curl = curl_easy_init();
+     string json = convertToJSON(product);
+     if (curl)
+     {
+         // Set cURL options
+         curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/order-food");
+         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json.c_str());
+         curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, json.length());
+
+         // Set request headers
+         struct curl_slist* headers = NULL;
+         headers = curl_slist_append(headers, "Content-Type: application/json");
+         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+         // Perform the POST request
+         res = curl_easy_perform(curl);
+
+         // Cleanup
+         curl_slist_free_all(headers);
+         curl_easy_cleanup(curl);
+     }
+
+     if (res != CURLE_OK)
+     {
+		 std::cerr << "Error: " << curl_easy_strerror(res) << std::endl;
+	 }
+     return res;
  }
 
 
@@ -265,3 +346,30 @@ using namespace std;
 
      return 0;
  }
+
+ //
+ //string serializeProductCart(const ProductCart& productCart)
+ //{
+ //    rapidjson::Document document;
+ //    document.SetObject();
+ //    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+
+ //    document.AddMember("id", productCart.id, allocator);
+ //    document.AddMember("title", productCart.title, allocator);
+ //    document.AddMember("price", to_string(productCart.price), allocator);
+ //    document.AddMember("description", productCart.description, allocator);
+ //    document.AddMember("category", productCart.category, allocator);
+ //    document.AddMember("image", productCart.image, allocator);
+ //    document.AddMember("rating", to_string(productCart.rating), allocator);
+ //    document.AddMember("ratingCount", productCart.ratingCount, allocator);
+ //    document.AddMember("quantity", to_string(productCart.quantity), allocator);
+ //    document.AddMember("location", productCart.location, allocator);
+
+ //    rapidjson::StringBuffer buffer;
+ //    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+ //    document.Accept(writer);
+ //    cout<< buffer.GetString()<<endl;
+
+ //    return buffer.GetString();
+ //}
+

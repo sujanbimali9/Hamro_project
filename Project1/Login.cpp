@@ -9,32 +9,32 @@ void loginDialog();
 void Signup();
 void Exit();
 bool checkCredentials(const string& username, const string& password);
-
-int main() {
-    int value;
-
-    system("cls");
-
-    cout << "Please sign up or login" << endl;
-    cout << "Enter 1 for sign up, 2 for login, and 3 for exit: " << endl;
-
-    cin >> value;
-
-    if (value == 1) {
-        Signup();
-    }
-    else if (value == 2) {
-        loginDialog();
-    }
-    else if (value == 3) {
-        Exit();
-    }
-    else {
-        cout << "Please enter a valid number." << endl;
-    }
-
-    return 0;
-}
+//
+//int main() {
+//    int value;
+//
+//    system("cls");
+//
+//    cout << "Please sign up or login" << endl;
+//    cout << "Enter 1 for sign up, 2 for login, and 3 for exit: " << endl;
+//
+//    cin >> value;
+//
+//    if (value == 1) {
+//        Signup();
+//    }
+//    else if (value == 2) {
+//        loginDialog();
+//    }
+//    else if (value == 3) {
+//        Exit();
+//    }
+//    else {
+//        cout << "Please enter a valid number." << endl;
+//    }
+//
+//    return 0;
+//}
 
 void loginDialog() {
     string username, password;
