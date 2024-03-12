@@ -33,6 +33,9 @@
     <ClCompile Include="ProductCart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="clear.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="apis.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProductCart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clear.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

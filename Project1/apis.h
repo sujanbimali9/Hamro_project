@@ -1,5 +1,5 @@
-#ifndef API_H
-#define API_H
+#ifndef APIS_H
+#define APIS_H
 
 #include <vector>
 #include <string>

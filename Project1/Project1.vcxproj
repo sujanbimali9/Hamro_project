@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="clear.cpp" />
     <ClCompile Include="ListData.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="apis.cpp" />
@@ -28,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="apis.h" />
+    <ClInclude Include="clear.h" />
     <ClInclude Include="Product.h" />
     <ClInclude Include="Response.h" />
     <ClInclude Include="ProductCart.h" />
