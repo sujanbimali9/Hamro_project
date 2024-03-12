@@ -1,5 +1,6 @@
 #include "apis.h"
 #include "Product.h"
+#include "ProductCart.h"
 
 #include<iostream>
 #include<fstream>
@@ -12,6 +13,7 @@ void loginDialog();
 void Signup();
 void Exit();
 bool checkCredentials(const string& username, const string& password);
+
 
 int main() {
     int value;
@@ -50,14 +52,12 @@ void loginDialog() {
 
     if (checkCredentials(username, password)) {
         cout << "Login successful." << endl;
-        cout<< "Press any key to continue..." << endl;
+        cout << "Press any key to continue..." << endl;
         cin.get();
-        vector<Product> products ;
-        Product product;
-   
-       
-        
-
+        vector<ProductCart> c;
+        vector<Product> s;
+        getData(s);
+        getCart("1234", c);
     }
     else {
         cout << "Invalid username or password. Please try again." << endl;

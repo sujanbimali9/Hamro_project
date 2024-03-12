@@ -35,7 +35,7 @@ static size_t write_callback(void *contents, size_t size, size_t nmemb, Response
     return total_size;
 }
 
-static int getData(vector<Product>& product)
+ int getData(vector<Product>& product)
 {
     CURL *curl = curl_easy_init();
 
@@ -72,7 +72,7 @@ static int getData(vector<Product>& product)
     return 0;
 }
 
-static int getCart(string id,vector<ProductCart>& product)
+ int getCart(string id,vector<ProductCart>& product)
 {
     CURL *curl = curl_easy_init();
 
@@ -109,7 +109,7 @@ static int getCart(string id,vector<ProductCart>& product)
     }
 }
 
-static int orderFood(ProductCart &product)
+ int orderFood(ProductCart &product)
 {
 
     CURL *curl;
