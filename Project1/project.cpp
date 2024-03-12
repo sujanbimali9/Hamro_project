@@ -26,6 +26,17 @@ using namespace std;
      std::string image;
      double rating;
      int ratingCount;
+
+     void fromJson(const rapidjson::Value& productJson) {
+         id = productJson["foodid"].GetString();
+         title = productJson["title"].GetString();
+         price = productJson["price"].GetDouble();
+         description = productJson["description"].GetString();
+         category = productJson["category"].GetString();
+         image = productJson["image"].GetString();
+         rating = productJson["rating"].GetDouble();
+         ratingCount = productJson["ratingCount"].GetInt();
+     }
  };
 
  class ProductCart: public Product{
@@ -34,7 +45,8 @@ using namespace std;
      string userid;
      string location;
      string name;
-     string convertToJSON() const {
+
+     string toJson() const {
          rapidjson::StringBuffer s;
          rapidjson::Writer<rapidjson::StringBuffer> writer(s);
          writer.StartObject();
@@ -52,6 +64,21 @@ using namespace std;
          writer.Key("location"); writer.String(location.c_str());
          writer.EndObject();
          return s.GetString();
+     }
+     void fromJson(const rapidjson::Value& productJson) {
+         id = productJson["foodid"].GetString();
+         title = productJson["title"].GetString();
+         price = productJson["price"].GetDouble();
+         description = productJson["description"].GetString();
+         category = productJson["category"].GetString();
+         image = productJson["image"].GetString();
+         rating = productJson["rating"].GetDouble();
+         ratingCount = productJson["ratingCount"].GetInt();
+         userid = productJson["userid"].GetString();
+         name = productJson["name"].GetString();
+         location = productJson["location"].GetString();
+         quantity = productJson["quantity"].GetInt();
+
      }
 
  };
@@ -81,7 +108,7 @@ using namespace std;
 
 
 // Callback function to write received data into a Response object
- size_t write_callback(void* contents, size_t size, size_t nmemb, Response* response) {
+ static size_t write_callback(void* contents, size_t size, size_t nmemb, Response* response) {
      size_t total_size = size * nmemb;
      response->appendData((char*)contents, total_size);
      return total_size;
@@ -167,15 +194,13 @@ using namespace std;
  }
 
 
-
-
-
    int orderFood(ProductCart product) {
 
      CURL* curl;
-     CURLcode res;
-     curl = curl_easy_init();
-     string json = product.convertToJSON();
+          curl = curl_easy_init();
+          CURLcode res;
+     string json = product.toJson();
+
      if (curl)
      {
          // Set cURL options
@@ -189,18 +214,24 @@ using namespace std;
          curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
          // Perform the POST request
-         res = curl_easy_perform(curl);
+         CURLcode res = curl_easy_perform(curl);
 
          // Cleanup
          curl_slist_free_all(headers);
          curl_easy_cleanup(curl);
-     }
 
-     if (res != CURLE_OK)
-     {
-		 std::cerr << "Error: " << curl_easy_strerror(res) << std::endl;
+
+         if (res != CURLE_OK)
+         {
+             std::cerr << "Error: " << curl_easy_strerror(res) << std::endl;
+             return 1;
+         }
+         return 0;;
+     }
+     else {
+		 std::cerr << "Error initializing libcurl" << std::endl;
+		 return 1;
 	 }
-     return res;
  }
 
 
@@ -219,16 +250,7 @@ using namespace std;
 
          // Create a Product object and populate its fields
          Product product;
-         product.id = productJson["foodid"].GetString();
-         product.title = productJson["title"].GetString();
-         product.price = productJson["price"].GetDouble();
-         product.description = productJson["description"].GetString();
-         product.category = productJson["category"].GetString();
-         product.image = productJson["image"].GetString();
-         product.rating = productJson["rating"].GetDouble();
-          product.ratingCount = productJson["ratingCount"].GetInt();
-
-
+         product.fromJson(productJson);
          products.push_back(product);
      }
 
@@ -255,25 +277,8 @@ using namespace std;
 
          // Create a Product object and populate its fields
          ProductCart product;
-         product.id = productJson["foodid"].GetString();
-         product.title = productJson["title"].GetString();
-         product.price = productJson["price"].GetDouble();
-         product.description = productJson["description"].GetString();
-         product.category = productJson["category"].GetString();
-         product.image = productJson["image"].GetString();
-         product.rating = productJson["rating"].GetDouble();
-         product.ratingCount = productJson["ratingCount"].GetInt();
-         product.quantity = productJson["quantity"].GetInt();
-         product.location = productJson["location"].GetString();
-
-         cout<< "Product id: " << product.id << endl;
-         cout<< "Product title: " << product.title << endl;
-         cout<< "Product price: " << product.price << endl;
-         cout<< "Product description: " << product.description << endl;
-
+         product.fromJson(productJson);
          products.push_back(product);
      }
-     cout<< "cart data received successfully" << endl;
-
      return 0;
  }
