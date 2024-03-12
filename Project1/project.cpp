@@ -34,7 +34,25 @@ using namespace std;
      string userid;
      string location;
      string name;
-    
+     string convertToJSON() const {
+         rapidjson::StringBuffer s;
+         rapidjson::Writer<rapidjson::StringBuffer> writer(s);
+         writer.StartObject();
+         writer.Key("id"); writer.String(id.c_str());
+         writer.Key("title"); writer.String(title.c_str());
+         writer.Key("price"); writer.Double(price);
+         writer.Key("description"); writer.String(description.c_str());
+         writer.Key("category"); writer.String(category.c_str());
+         writer.Key("image"); writer.String(image.c_str());
+         writer.Key("rating"); writer.Double(rating);
+         writer.Key("ratingCount"); writer.Int(ratingCount);
+         writer.Key("quantity"); writer.Int(quantity);
+         writer.Key("userid"); writer.String(userid.c_str());
+         writer.Key("name"); writer.String(name.c_str());
+         writer.Key("location"); writer.String(location.c_str());
+         writer.EndObject();
+         return s.GetString();
+     }
 
  };
 
@@ -58,10 +76,8 @@ using namespace std;
  int parseProducts(Response response, std::vector<Product>& products) ;
  int parseProductsCart(Response response, std::vector<ProductCart>& products);
  int getData();
- //string serializeProductCart(const ProductCart& productCart);
- string convertToJSON(const ProductCart& cart);
- int orderFood();
-
+ int orderFood(ProductCart product);
+ int getCart(string id);
 
 
 // Callback function to write received data into a Response object
@@ -88,6 +104,7 @@ using namespace std;
          CURLcode res = curl_easy_perform(curl);
          if (res != CURLE_OK) {
              std::cerr << "Error: " << curl_easy_strerror(res) << std::endl;
+             return 1;
          }
          else {
              // Now response.getData() contains the received data, you can store/process it further
@@ -101,68 +118,16 @@ using namespace std;
      }
      else {
          std::cerr << "Error initializing libcurl" << std::endl;
+         return 1;
      }
-
-     char opt;
-
-     do {
-
-         int a = products.size();
-         cout << "enter a no"<<endl;
-         cin >> a;
-         opt = 'n';
-
-         switch (a) {
-         case 1:        
-             getCartData("12345");
-             cout << 1 << endl;
-             break;
-         case 2:
-             getData();
-             cout << 2 << endl;
-             break;
-
-         case 3:
-             cout << 3 << endl;
-             break;
-
-         case 4:
-             cout << 4 << endl;
-             break;
-
-         case 5:
-             cout << 5 << endl;
-             break;
-
-         case 6:
-             cout << 6 << endl;
-             break;
-         case 7:
-             cout << 6 << endl;
-             break;
-         case 8:
-             cout << 9 << endl;
-             break;
-         case 10:
-             cout << 6 << endl;
-             break;
-
-
-         }
-
-         cout << "do you want to continue"<<endl;
-         cin >> opt;
-     } while (opt == 'y' || opt == 'Y');
-
-     system("cls");
-     cout << "program exit successfullly"<<endl;
-
      return 0;
  }
 
 
- static int getCartData(string id)
- {
+
+
+  int getCart(string id)
+ {     
      CURL* curl = curl_easy_init();
      vector<ProductCart> products;
 
@@ -196,55 +161,21 @@ using namespace std;
      }
      else
      {
-         std::cerr << "Error initializing libcurl" << std::endl;
+         cerr << "Error initializing libcurl" << std::endl;
          return 1;
      }
  }
 
 
 
- string convertToJSON(const ProductCart& cart) {
-     rapidjson::StringBuffer s;
-     rapidjson::Writer < rapidjson:: StringBuffer > writer(s);
-     writer.StartObject();
-     writer.Key("id"); writer.String(cart.id.c_str());
-     writer.Key("title"); writer.String(cart.title.c_str());
-     writer.Key("price"); writer.Double(cart.price);
-     writer.Key("description"); writer.String(cart.description.c_str());
-     writer.Key("category"); writer.String(cart.category.c_str());
-     writer.Key("image"); writer.String(cart.image.c_str());
-     writer.Key("rating"); writer.Double(cart.rating);
-     writer.Key("ratingCount"); writer.Int(cart.ratingCount);
-     writer.Key("quantity"); writer.Int(cart.quantity);
-     writer.Key("userid"); writer.String(cart.userid.c_str());
-     writer.Key("name"); writer.String(cart.name.c_str());
-     writer.Key("location"); writer.String(cart.location.c_str());
-     writer.EndObject();
-     return s.GetString();
- }
 
 
+   int orderFood(ProductCart product) {
 
-
- int main() {
-
-     ProductCart product;
-     product.id = "12345";
-     product.title = "Pizza";
-     product.price = 9.99;
-     product.description = "Delicious pizza";
-     product.category = "Food";
-     product.image = "pizza.jpg";
-     product.rating = 4.5;
-     product.ratingCount = 100;
-     product.quantity = 2;
-     product.userid = "user123";
-     product.name = "sujan";
-     product.location = "Location";
      CURL* curl;
      CURLcode res;
      curl = curl_easy_init();
-     string json = convertToJSON(product);
+     string json = product.convertToJSON();
      if (curl)
      {
          // Set cURL options
@@ -346,30 +277,3 @@ using namespace std;
 
      return 0;
  }
-
- //
- //string serializeProductCart(const ProductCart& productCart)
- //{
- //    rapidjson::Document document;
- //    document.SetObject();
- //    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
-
- //    document.AddMember("id", productCart.id, allocator);
- //    document.AddMember("title", productCart.title, allocator);
- //    document.AddMember("price", to_string(productCart.price), allocator);
- //    document.AddMember("description", productCart.description, allocator);
- //    document.AddMember("category", productCart.category, allocator);
- //    document.AddMember("image", productCart.image, allocator);
- //    document.AddMember("rating", to_string(productCart.rating), allocator);
- //    document.AddMember("ratingCount", productCart.ratingCount, allocator);
- //    document.AddMember("quantity", to_string(productCart.quantity), allocator);
- //    document.AddMember("location", productCart.location, allocator);
-
- //    rapidjson::StringBuffer buffer;
- //    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
- //    document.Accept(writer);
- //    cout<< buffer.GetString()<<endl;
-
- //    return buffer.GetString();
- //}
-
