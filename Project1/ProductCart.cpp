@@ -48,3 +48,14 @@ void ProductCart::fromJson(const rapidjson::Value& productJson) {
     location = productJson["location"].GetString();
     quantity = productJson["quantity"].GetInt();
 }
+
+ProductCart::ProductCart(const Product& product, int quantity, const std::string& userid, const std::string& location, const std::string& name)
+    : Product(product), quantity(quantity), userid(userid), location(location), name(name) {}
+
+ProductCart::ProductCart() : quantity(0) {}
+
+ProductCart::ProductCart(const ProductCart& productCart) : Product(productCart)
+{
+}
+
+

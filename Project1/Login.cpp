@@ -1,6 +1,5 @@
-#include "apis.h"
-#include "Product.h"
-#include "ProductCart.h"
+#include "Homescreen.h"
+#include "Screen.h"
 
 #include<iostream>
 #include<fstream>
@@ -16,10 +15,8 @@ bool checkCredentials(const string& username, const string& password);
 
 
 int main() {
+    Screen::clrscr();;
     int value;
-
-    system("cls");
-
     cout << "Please sign up or login" << endl;
     cout << "Enter 1 for sign up, 2 for login, and 3 for exit: " << endl;
 
@@ -54,10 +51,7 @@ void loginDialog() {
         cout << "Login successful." << endl;
         cout << "Press any key to continue..." << endl;
         cin.get();
-        vector<ProductCart> c;
-        vector<Product> s;
-        getData(s);
-        getCart("1234", c);
+   
     }
     else {
         cout << "Invalid username or password. Please try again." << endl;
@@ -79,6 +73,7 @@ void Signup() {
         outfile << username << " " << password << endl;
         cout << "Signup successful. User data stored in 'user_data.txt'." << endl;
         outfile.close();
+        homeScreen();
     }
     else {
         cerr << "Error opening the file." << endl;

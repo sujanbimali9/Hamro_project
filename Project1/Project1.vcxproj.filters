@@ -33,7 +33,10 @@
     <ClCompile Include="ProductCart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="clear.cpp">
+    <ClCompile Include="Screen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Homescreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,7 +53,10 @@
     <ClInclude Include="ProductCart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="clear.h">
+    <ClInclude Include="Screen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Homescreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

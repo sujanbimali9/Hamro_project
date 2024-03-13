@@ -162,7 +162,7 @@ int parseProducts(Response response, vector<Product> &products)
     }
 
     // Iterate over each product in the JSON array
-    for (rapidjson::SizeType i = 0; i < doc.Size(); ++i)
+    for (int  i = 0; i < doc.Size(); ++i)
     {
         const rapidjson::Value &productJson = doc[i];
 
@@ -187,7 +187,7 @@ int parseProductsCart(Response response, std::vector<ProductCart> &products)
     }
 
     // Iterate over each product in the JSON array
-    for (rapidjson::SizeType i = 0; i < doc.Size(); ++i)
+    for (int i = 0; i < doc.Size(); ++i)
     {
         const rapidjson::Value &productJson = doc[i];
 

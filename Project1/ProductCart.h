@@ -14,6 +14,9 @@ public:
 
     std::string toJson() const;
     void fromJson(const rapidjson::Value& productJson);
+    ProductCart(const Product& product, int quantity, const std::string& userid, const std::string& location, const std::string& name);
+    ProductCart();
+	ProductCart(const ProductCart& productCart);
 };
 
 #endif
