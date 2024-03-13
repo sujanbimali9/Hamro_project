@@ -78,9 +78,9 @@ static size_t write_callback(void *contents, size_t size, size_t nmemb, Response
 
     if (curl)
     {
-        string url = "http://localhost:3000/get-order/12345";
+        string url = "http://localhost:3000/get-order/"+id;
         Response response;
-        curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/get-order/12345");
+        curl_easy_setopt(curl, CURLOPT_URL, url);
 
         // Set the write callback function
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);

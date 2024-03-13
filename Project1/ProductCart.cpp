@@ -2,11 +2,12 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 
-std::string ProductCart::toJson() const {
+std::string ProductCart::toJson() const
+{
     rapidjson::StringBuffer s;
     rapidjson::Writer<rapidjson::StringBuffer> writer(s);
     writer.StartObject();
-    writer.Key("id");
+    writer.Key("foodid");
     writer.String(id.c_str());
     writer.Key("title");
     writer.String(title.c_str());
@@ -34,7 +35,8 @@ std::string ProductCart::toJson() const {
     return s.GetString();
 }
 
-void ProductCart::fromJson(const rapidjson::Value& productJson) {
+void ProductCart::fromJson(const rapidjson::Value &productJson)
+{
     id = productJson["foodid"].GetString();
     title = productJson["title"].GetString();
     price = productJson["price"].GetDouble();
@@ -49,13 +51,11 @@ void ProductCart::fromJson(const rapidjson::Value& productJson) {
     quantity = productJson["quantity"].GetInt();
 }
 
-ProductCart::ProductCart(const Product& product, int quantity, const std::string& userid, const std::string& location, const std::string& name)
+ProductCart::ProductCart(const Product &product, int quantity, const std::string &userid, const std::string &location, const std::string &name)
     : Product(product), quantity(quantity), userid(userid), location(location), name(name) {}
 
 ProductCart::ProductCart() : quantity(0) {}
 
-ProductCart::ProductCart(const ProductCart& productCart) : Product(productCart)
+ProductCart::ProductCart(const ProductCart &productCart) : Product(productCart)
 {
 }
-
-

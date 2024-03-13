@@ -6,7 +6,7 @@
 #endif
 #include <iomanip>
 
- void Screen::clrscr()
+void Screen::clrscr()
 {
 #ifdef _WIN32
     system("cls");
@@ -14,6 +14,7 @@
     system("clear");
 #endif
 };
-  std::_Smanip<std::streamsize> Screen::space(int size) {
-     return std::setw(size);
- }
+std::_Smanip<std::streamsize> Screen::space(int size)
+{
+    return std::setw(size);
+}

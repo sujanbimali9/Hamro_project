@@ -3,9 +3,10 @@
 
 #include <string>
 
-class Response {
+class Response
+{
 public:
-    void appendData(const char* data, size_t size);
+    void appendData(const char *data, size_t size);
     std::string getData() const;
 
 private:

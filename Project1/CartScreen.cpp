@@ -3,6 +3,7 @@
 #include"Screen.h"
 #include"apis.h"
 #include "Homescreen.h"
+#include "Login.h"
 
 #include <vector>
 #include<string>
@@ -15,7 +16,7 @@ void cartScreen() {
 	Screen::clrscr();
 	vector<ProductCart> productCart;
 	try {
-		if (getCart("12345", productCart)) { throw 1; }
+		if (getCart(userId, productCart)) { throw 1; }
 		else
 		{
 			showCart(0, productCart);

@@ -2,6 +2,6 @@
 #define DESCRIPTION_H
 #include "Product.h"
 
-void descripScreen( Product& data);
+void descripScreen(Product &data);
 
 #endif

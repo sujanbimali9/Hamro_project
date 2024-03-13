@@ -1,6 +1,7 @@
 #include "Product.h"
 
-void Product::fromJson(const rapidjson::Value& productJson) {
+void Product::fromJson(const rapidjson::Value &productJson)
+{
     id = productJson["foodid"].GetString();
     title = productJson["title"].GetString();
     price = productJson["price"].GetDouble();

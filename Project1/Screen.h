@@ -3,12 +3,11 @@
 #include <iostream>
 #include <iomanip>
 
-
 class Screen
 {
 public:
     static void clrscr();
-    static std::_Smanip<std::streamsize>  space(int size = 50);
+    static std::_Smanip<std::streamsize> space(int size = 60);
 };
 
 #endif
