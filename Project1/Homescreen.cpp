@@ -26,8 +26,13 @@ void homeScreen()
 			show(0, product);
 		}
 	}
+	catch (string error)
+	{
+		cout << error << endl;
+	}
 	catch (...)
 	{
+		cout << "error in getting data" << endl;
 	}
 }
 
@@ -44,7 +49,7 @@ void show(int screen, vector<Product> product)
 		cout << Screen::space(50) << i + 1 << ". " << product[i].title << endl;
 		cout << Screen::space(59) << "Price: " << product[i].price << endl;
 		cout << Screen::space() << "Rating: " << product[i].rating << endl;
-		cout << Screen::space(90) << "-----------------------------------" << endl;
+		cout << Screen::space(82) << "-----------------------------------" << endl;
 	}
 	cout << "\n\n";
 	cout << Screen::space(90) << "For more enter '0' and to go to cart enter '100'" << endl;

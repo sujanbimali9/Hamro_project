@@ -31,6 +31,8 @@ std::string ProductCart::toJson() const
     writer.String(name.c_str());
     writer.Key("location");
     writer.String(location.c_str());
+    writer.Key("quantity");
+    writer.Int(quantity);
     writer.EndObject();
     return s.GetString();
 }
@@ -56,6 +58,3 @@ ProductCart::ProductCart(const Product &product, int quantity, const std::string
 
 ProductCart::ProductCart() : quantity(0) {}
 
-ProductCart::ProductCart(const ProductCart &productCart) : Product(productCart)
-{
-}

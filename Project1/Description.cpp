@@ -16,9 +16,8 @@ void descripScreen(Product &data)
 	Screen::clrscr();
 	cout << userName << endl;
 	cout << "\n\n\n\n\n\n\n";
-	cout << Screen::space(62) << data.title << endl;
-	cout << Screen::space(50) << data.description << "\n"
-		 << endl;
+	cout << Screen::space(63) << data.title << endl;
+	cout << Screen::space(30)<<' ' << data.description << endl;
 	cout << Screen::space(60) << "Price: " << data.price << endl;
 	cout << Screen::space(61) << "Rating: " << data.rating << endl;
 	cout << Screen::space(67) << "Rating count: " << data.ratingCount << endl;
@@ -26,8 +25,8 @@ void descripScreen(Product &data)
 
 	int userChoice, Quantity;
 	string Address;
-	cout << Screen::space(70) << "To go back Enter 0:" << endl;
-	cout << Screen::space(65) << "Buy Enter 1:\n";
+	cout <<endl<< Screen::space(70) << "To go back Enter 0:" << endl;
+	cout << Screen::space(67) << "Buy Enter 1:\n";
 	cin >> userChoice;
 
 	if (userChoice == 1)
@@ -39,18 +38,22 @@ void descripScreen(Product &data)
 		cin >> Address;
 
 		ProductCart cart(data, Quantity, userId, Address, userName);
-		if (orderFood(cart))
-		{
-			Screen::clrscr();
-			cout << "Error occured while ordering item" << endl;
+		try {
+			orderFood(cart);
 		}
-		else
+		catch (string error)
 		{
 			Screen::clrscr();
-			cout << "\n\n\n";
-			cout << Screen::space(20) << "Order placed successfully" << endl;
-			homeScreen();
+			cout << Screen::space(20) << error << endl;
 			cin.get();
+			homeScreen();
+		}
+		catch (...)
+		{
+			Screen::clrscr();
+			cout << Screen::space(20) << "Error occured " << endl;		
+			cin.get();
+			homeScreen();
 		}
 	}
 	else

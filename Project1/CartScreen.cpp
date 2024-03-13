@@ -10,7 +10,6 @@
 
 
 using namespace std;
-void showCart(int screen, vector<ProductCart> product);
 
 void cartScreen() {
 	Screen::clrscr();
@@ -19,38 +18,36 @@ void cartScreen() {
 		if (getCart(userId, productCart)) { throw 1; }
 		else
 		{
-			showCart(0, productCart);
+			cout<< Screen::space(70) << "My Orders" << endl<<endl;
+
+			for (int i = 0; i <productCart.size() ; i++) {
+				cout << Screen::space(56) << i + 1 << ". " << productCart[i].title << endl;
+				cout << Screen::space(68) << "Quantity: " << productCart[i].quantity << endl;
+				cout << Screen::space(74) << "Price per item: " << productCart[i].price << endl;
+				cout << Screen::space(67) << "Address: " << productCart[i].location << endl;
+				cout << Screen::space(71) << "Total Price: " << (productCart[i].price - '0') * productCart[i].quantity << endl;
+				cout << Screen::space(71) << "Total Price: " << (productCart[i].price - '0') * productCart[i].quantity << endl;
+				cout << Screen::space(89) << string(35,'-') << endl;
+			}
+			cout<<"\n\n" << Screen::space(88) << "enter 1 to return to homescreen" << endl;
+
+			int choice;
+			cin >> choice;
+			if (choice == 1) {
+				homeScreen();
+			}
+			else {
+				cout << "invalid input" << endl;
+			}
+			cout << "press any key to continue   " << choice << endl;
 		}
 	}
+	catch (string error) {
+		cout<< error << endl;
+	}
 	catch (...) {
-
+		cout << "error in getting cart" << endl;
 	}
 }
 
-void showCart(int screen, vector<ProductCart> product) {
-	int length = screen * 10 + product.size() % 10;
-	if (length >= product.size()) {
-		length = product.size() - 1;
-	}
-	for (int i = screen * 10; i < length; i++) {
-		cout << Screen::space(40) << i + 1 << ". " << product[i].title << endl;
-		cout << Screen::space() << "Quantity: " << product[i].quantity << endl;
-		cout << Screen::space(49) << "Price per item: " << product[i].price << endl;
-		cout << Screen::space(49) << "Address: " << product[i].location << endl;
-		cout << Screen::space(49) << "Total Price: " << product[i].price-'0'* product[i].quantity << endl;
-
-		cout << Screen::space(70) << "-----------------------------------" << endl;
-	}
-	cout << "enter 1 to return to homescreen" << endl;
-
-	int choice;
-	cin >> choice;
-	if (choice == 1) {
-		homeScreen();
-	}
-	else {
-		cout<< "invalid input"<<endl;
-	}
-	cout << "press any key to continue   " << choice << endl;
-	return;
-}
+\

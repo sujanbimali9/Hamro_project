@@ -56,6 +56,7 @@ static size_t write_callback(void *contents, size_t size, size_t nmemb, Response
 
         if (res != CURLE_OK)
         {
+            throw "error check your network conncetion and try again";
             return 1;
         }
         else
@@ -66,34 +67,42 @@ static size_t write_callback(void *contents, size_t size, size_t nmemb, Response
         }
     }
     else
-    {
+    { 
+        throw "curl not initialized properly";
         return 1;
     }
-    return 0;
 }
 
  int getCart(string id,vector<ProductCart>& product)
 {
     CURL *curl = curl_easy_init();
 
+
     if (curl)
     {
         string url = "http://localhost:3000/get-order/"+id;
+        cout<< url << endl;
         Response response;
         curl_easy_setopt(curl, CURLOPT_URL, url);
 
         // Set the write callback function
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 
+
         // Pass the address of the Response object
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+
 
         CURLcode res = curl_easy_perform(curl);   
 
         curl_easy_cleanup(curl);
 
-        if (res != CURLE_OK)
+        if (res == CURLE_URL_MALFORMAT) {
+            throw "empty";
+        }
+          else  if (res != CURLE_OK)
         {
+            throw "error check your network conncetion and try again";
             return 1;
         }
         else
@@ -105,6 +114,7 @@ static size_t write_callback(void *contents, size_t size, size_t nmemb, Response
     }
     else
     {
+        throw "curl not initialized properly";
         return 1;
     }
 }
@@ -139,13 +149,16 @@ static size_t write_callback(void *contents, size_t size, size_t nmemb, Response
 
         if (res != CURLE_OK)
         {
-            curl_easy_cleanup(curl);
+            throw "check your network connection and try again";
             return 1;
         }
-        return 0;
+        else {
+			return 0;
+		}
     }
     else
     {
+        throw "curl not initialized properly";
         return 1;
     }
 }
