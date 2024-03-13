@@ -3,10 +3,8 @@
 #include"Screen.h"
 #include"apis.h"
 #include "Description.h"
-
 #include <vector>
 #include<string>
-
 
 using namespace std;
 void show(int screen, vector<Product> product);
@@ -27,6 +25,7 @@ void homeScreen() {
 }
 
 void show(int screen, vector<Product> product) {
+	Screen::clrscr();
 	int length = screen * 10 + product.size() % 10;
 	if (length >= product.size()) {
 		length = product.size() - 1;
@@ -55,7 +54,7 @@ void show(int screen, vector<Product> product) {
 	}
 	else {
 		if (choice >= product.size()) {
-			cout << "invalid input";
+			cout << "invalid input"<<endl;
 			show(screen,product);
 		}
 		else {
