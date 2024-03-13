@@ -26,7 +26,7 @@ int main() {
     Screen::clrscr();;
     int value;
     cout << "Please sign up or login" << endl;
-    cout << "Enter 1 for sign up, 2 for login, and 3 for exit: " << endl;
+    cout << "\nEnter 1 for sign up:\n2 for login:\n3 for exit: " << endl;
 
     cin >> value;
 
@@ -37,7 +37,7 @@ int main() {
         loginDialog();
     }
     else if (value == 3) {
-        Exit();
+        exit(0);
     }
     else {
         cout << "Please enter a valid number." << endl;
@@ -63,7 +63,9 @@ void loginDialog() {
    
     }
     else {
-        cout << "Invalid username or password. Please try again." << endl;
+        cout << "\nInvalid username or password. Please try again." << endl;
+        cout << "\n\n";
+        loginDialog();
     }
 }
 
