@@ -16,10 +16,10 @@ void homeScreen() {
 		{
 			int length = product.size() >= 10 ? 10 : product.size();
 			for (int i = 0; i < length; ++i) {
-				cout<< i + 1 << ". " << product[i].title << endl;
-				cout<< "Price: " << product[i].price << endl;
-				cout<< "Rating: " << product[i].rating << endl;
-				cout<< "-----------------------------------" << endl;
+				cout  << Screen::space(40) << i + 1 << ". " << product[i].title << endl;
+				cout << Screen::space(49) << "Price: " << product[i].price << endl;
+				cout << Screen::space() << "Rating: " << product[i].rating << endl;
+				cout << Screen::space(70) << "-----------------------------------" << endl;
 
 			}
 

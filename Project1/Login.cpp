@@ -1,17 +1,27 @@
 #include "Homescreen.h"
 #include "Screen.h"
-
+#include<string>
 #include<iostream>
 #include<fstream>
 #include<Windows.h>
+#include<ctime> 
+#include "Description.h"
 
 
 using namespace std;
+
+string userId;
+string userName;
 
 void loginDialog();
 void Signup();
 void Exit();
 bool checkCredentials(const string& username, const string& password);
+
+string generateUserId() {
+    time_t currentTime = time(nullptr); // Get the current time
+    return to_string(currentTime); // Convert time to string and return
+}
 
 
 int main() {
@@ -43,14 +53,16 @@ void loginDialog() {
 
     cout << "Enter username: ";
     cin >> username;
+    userName = username;
 
     cout << "Enter password: ";
     cin >> password;
-
     if (checkCredentials(username, password)) {
         cout << "Login successful." << endl;
         cout << "Press any key to continue..." << endl;
         cin.get();
+        descripScreen();
+        
    
     }
     else {
@@ -67,10 +79,13 @@ void Signup() {
     cout << "Enter password: ";
     cin >> password;
 
+    userName = username;
+    userId = generateUserId();
+
     ofstream outfile("user_data.txt", ios::app);
 
     if (outfile.is_open()) {
-        outfile << username << " " << password << endl;
+        outfile<<userId<< username << " " << password << endl;
         cout << "Signup successful. User data stored in 'user_data.txt'." << endl;
         outfile.close();
         homeScreen();
@@ -89,12 +104,13 @@ void Exit() {
 }
 
 bool checkCredentials(const string& username, const string& password) {
-    string storedUsername, storedPassword;
+    string storedUsername, storedPassword,id;
     ifstream infile("user_data.txt");
 
     if (infile.is_open()) {
-        while (infile >> storedUsername >> storedPassword) {
+        while (infile >>id>> storedUsername >> storedPassword) {
             if (storedUsername == username && storedPassword == password) {
+                userId = id;
                 infile.close();
                 return true;
             }
