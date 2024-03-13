@@ -4,6 +4,7 @@
 #include "apis.h"
 #include "Description.h"
 #include "CartScreen.h"
+#include "Login.h"
 
 #include <vector>
 #include <string>
@@ -73,6 +74,9 @@ void show(int screen, vector<Product> product)
 	else if (choice == 100)
 	{
 		cartScreen();
+	}
+	else if (choice == 1000) {
+		main();
 	}
 	else
 	{

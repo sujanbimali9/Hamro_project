@@ -4,5 +4,6 @@
 
 extern std::string userId;
 extern std::string userName;
+int main();
 
 #endif 

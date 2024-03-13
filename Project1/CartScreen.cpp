@@ -1,10 +1,10 @@
-#include <iostream>
 #include "ProductCart.h"
 #include"Screen.h"
 #include"apis.h"
 #include "Homescreen.h"
 #include "Login.h"
 
+#include <iostream>
 #include <vector>
 #include<string>
 
@@ -25,11 +25,11 @@ void cartScreen() {
 				cout << Screen::space(68) << "Quantity: " << productCart[i].quantity << endl;
 				cout << Screen::space(74) << "Price per item: " << productCart[i].price << endl;
 				cout << Screen::space(67) << "Address: " << productCart[i].location << endl;
-				cout << Screen::space(71) << "Total Price: " << (productCart[i].price - '0') * productCart[i].quantity << endl;
-				cout << Screen::space(71) << "Total Price: " << (productCart[i].price - '0') * productCart[i].quantity << endl;
+				cout << Screen::space(71) << "Total Price: " << productCart[i].price * productCart[i].quantity << endl;
+				cout << Screen::space(71) << "Total Price: " << productCart[i].price  * productCart[i].quantity << endl;
 				cout << Screen::space(89) << string(35,'-') << endl;
 			}
-			cout<<"\n\n" << Screen::space(88) << "enter 1 to return to homescreen" << endl;
+			cout<<"\n\n" << Screen::space(87) << "enter 1 to return to homescreen" << endl;
 
 			int choice;
 			cin >> choice;
@@ -50,4 +50,3 @@ void cartScreen() {
 	}
 }
 
-\

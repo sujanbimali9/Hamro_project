@@ -25,7 +25,7 @@ string generateUserId()
 int main()
 {
     Screen::clrscr();
-    ;
+    
     int value;
     cout << "Please sign up or login" << endl;
     cout << "\nEnter 1 for sign up 2 for login 3 for exit: " << endl;

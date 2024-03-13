@@ -27,7 +27,6 @@ int parseProducts(Response response, std::vector<Product>& products);
 int parseProductsCart(Response response, std::vector<ProductCart>& products);
 
 
-// Callback function to write received data into a Response object
 static size_t write_callback(void *contents, size_t size, size_t nmemb, Response *response)
 {
     size_t total_size = size * nmemb;
@@ -44,10 +43,8 @@ static size_t write_callback(void *contents, size_t size, size_t nmemb, Response
         Response response;
         curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/home");
 
-        // Set the write callback function
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 
-        // Pass the address of the Response object
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 
         CURLcode res = curl_easy_perform(curl);
@@ -77,18 +74,14 @@ static size_t write_callback(void *contents, size_t size, size_t nmemb, Response
 {
     CURL *curl = curl_easy_init();
 
-
     if (curl)
     {
         string url = "http://localhost:3000/get-order/"+id;
         Response response;
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 
-        // Set the write callback function
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 
-
-        // Pass the address of the Response object
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 
 
@@ -156,28 +149,22 @@ static size_t write_callback(void *contents, size_t size, size_t nmemb, Response
 
  int orderFood(ProductCart &product)
 {
-
     CURL *curl;
     curl = curl_easy_init();
-    CURLcode res;
     string json = product.toJson();
 
     if (curl)
     {
-        // Set cURL options
         curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/order-food");
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json.c_str());
         curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, json.length());
 
-        // Set request headers
         struct curl_slist *headers = NULL;
         headers = curl_slist_append(headers, "Content-Type: application/json");
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
-        // Perform the POST request
         CURLcode res = curl_easy_perform(curl);
 
-        // Cleanup
         curl_slist_free_all(headers);
 
         curl_easy_cleanup(curl);
@@ -209,12 +196,10 @@ int parseProducts(Response response, vector<Product> &products)
         return 1;
     }
 
-    // Iterate over each product in the JSON array
     for (int  i = 0; i < doc.Size(); ++i)
     {
         const rapidjson::Value &productJson = doc[i];
 
-        // Create a Product object and populate its fields
         Product product;
         product.fromJson(productJson);
         products.push_back(product);
@@ -234,12 +219,10 @@ int parseProductsCart(Response response, std::vector<ProductCart> &products)
         return 1;
     }
 
-    // Iterate over each product in the JSON array
     for (int i = 0; i < doc.Size(); ++i)
     {
         const rapidjson::Value &productJson = doc[i];
 
-        // Create a Product object and populate its fields
         ProductCart product;
         product.fromJson(productJson);
         products.push_back(product);

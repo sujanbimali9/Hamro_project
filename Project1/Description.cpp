@@ -14,9 +14,8 @@ using namespace std;
 void descripScreen(Product &data)
 {
 	Screen::clrscr();
-	cout << userName << endl;
-	cout << "\n\n\n\n\n\n\n";
-	cout << Screen::space(63) << data.title << endl;
+	cout << "\n\n\n\n\n\n";
+	cout << Screen::space(62) << data.title << endl;
 	cout << Screen::space(30)<<' ' << data.description << endl;
 	cout << Screen::space(60) << "Price: " << data.price << endl;
 	cout << Screen::space(61) << "Rating: " << data.rating << endl;
@@ -40,11 +39,14 @@ void descripScreen(Product &data)
 		ProductCart cart(data, Quantity, userId, Address, userName);
 		try {
 			orderFood(cart);
+			cin.get();
+			homeScreen();
 		}
 		catch (string error)
 		{
 			Screen::clrscr();
 			cout << Screen::space(20) << error << endl;
+			cout << "errorr" << endl;
 			cin.get();
 			homeScreen();
 		}
