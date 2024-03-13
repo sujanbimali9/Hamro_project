@@ -8,7 +8,7 @@ class Screen
 {
 public:
     static void clrscr();
-    static std::_Smanip<std::streamsize>  space(int size = 10);
+    static std::_Smanip<std::streamsize>  space(int size = 50);
 };
 
 #endif
