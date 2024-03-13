@@ -5,8 +5,6 @@
 #include<fstream>
 #include<Windows.h>
 #include<ctime> 
-#include "Description.h"
-
 
 using namespace std;
 
@@ -19,8 +17,8 @@ void Exit();
 bool checkCredentials(const string& username, const string& password);
 
 string generateUserId() {
-    time_t currentTime = time(nullptr); // Get the current time
-    return to_string(currentTime); // Convert time to string and return
+    time_t currentTime = time(nullptr); 
+    return to_string(currentTime);
 }
 
 
@@ -61,8 +59,7 @@ void loginDialog() {
         cout << "Login successful." << endl;
         cout << "Press any key to continue..." << endl;
         cin.get();
-        descripScreen();
-        
+        homeScreen();
    
     }
     else {
@@ -85,7 +82,7 @@ void Signup() {
     ofstream outfile("user_data.txt", ios::app);
 
     if (outfile.is_open()) {
-        outfile<<userId<< username << " " << password << endl;
+        outfile<<userId<<" "<< username << " " << password << endl;
         cout << "Signup successful. User data stored in 'user_data.txt'." << endl;
         outfile.close();
         homeScreen();
@@ -115,7 +112,6 @@ bool checkCredentials(const string& username, const string& password) {
                 return true;
             }
         }
-
         infile.close();
     }
 
