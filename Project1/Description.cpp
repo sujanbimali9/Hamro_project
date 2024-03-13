@@ -13,10 +13,10 @@
 
 using namespace std;
 
-void descripScreen(	Product data)
+void descripScreen(	Product& data)
 {
-	Screen::clrscr();
-			cout << "\n\n\n\n\n\n\n";
+		cout<<userName<<endl;
+		cout << "\n\n\n\n\n\n\n";
 		cout <<Screen::space(42)<< data.title << endl;
 		cout <<Screen::space(10)<<"Food Description:\n"<<Screen::space(10)<<data.description<<"\n" << endl;
 		cout << Screen::space(40) <<"Price: "<< data.price << endl;
@@ -40,8 +40,16 @@ void descripScreen(	Product data)
 			cin >> Address;
 
 
-			//ProductCart(, Quantity, "", Address, "");
-		}	
+			ProductCart cart(data, Quantity, userId, Address, userName);
+			if (orderFood(cart)) {
+				Screen::clrscr();
+				cout << "Error occured while ordering item" << endl;
+			} else {
+				Screen::clrscr();
+				cout << "Order placed successfully" << endl;
+			}
+
+		}
 		else {
 			homeScreen();
 		}

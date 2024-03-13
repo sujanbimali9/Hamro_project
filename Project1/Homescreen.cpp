@@ -3,6 +3,7 @@
 #include"Screen.h"
 #include"apis.h"
 #include "Description.h"
+#include "CartScreen.h"
 
 #include <vector>
 #include<string>
@@ -37,8 +38,8 @@ void show(int screen, vector<Product> product) {
 		cout << Screen::space() << "Rating: " << product[i].rating << endl;
 		cout << Screen::space(70) << "-----------------------------------" << endl;
 	}
-	cout << "for more enter '0'" << endl;
-	cout << "enter the number of the product for more details" << endl;
+	cout << Screen::space(20)<< "For more enter '0' and to go go cart enter 100'" << endl;
+	cout << Screen::space(20) << "Enter the number of the product for more details" << endl;
 
 	int choice;
 	cin >> choice;
@@ -53,6 +54,9 @@ void show(int screen, vector<Product> product) {
 			show(screen, product);
 		}
 	}
+	else if (choice == 100) {
+		cartScreen();
+	}
 	else {
 		if (choice >= product.size()) {
 			cout << "invalid input";
@@ -61,7 +65,6 @@ void show(int screen, vector<Product> product) {
 		else {
 		descripScreen(product[choice - 1]);
 		}
-		
 	}
 	cout<< "press any key to continue   "<<choice<<endl;
 	return;

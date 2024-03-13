@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CartScreen.cpp" />
     <ClCompile Include="Description.cpp" />
     <ClCompile Include="Homescreen.cpp" />
     <ClCompile Include="Screen.cpp" />
@@ -31,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="apis.h" />
+    <ClInclude Include="CartScreen.h" />
     <ClInclude Include="Description.h" />
     <ClInclude Include="Homescreen.h" />
     <ClInclude Include="Login.h" />
