@@ -40,7 +40,7 @@ int main() {
 
 void loginDialog() {
     string username, password;
-
+    
     cout << "Enter username: ";
     cin >> username;
 
@@ -51,6 +51,7 @@ void loginDialog() {
         cout << "Login successful." << endl;
         cout << "Press any key to continue..." << endl;
         cin.get();
+        homeScreen();
    
     }
     else {

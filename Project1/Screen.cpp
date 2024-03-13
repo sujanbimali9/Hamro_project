@@ -14,6 +14,6 @@
     system("clear");
 #endif
 };
-  std::_Smanip<std::streamsize> Screen::space(int size=10) {
+  std::_Smanip<std::streamsize> Screen::space(int size) {
      return std::setw(size);
  }
