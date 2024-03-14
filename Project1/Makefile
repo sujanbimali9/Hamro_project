@@ -26,7 +26,7 @@ build/%.o: %.cpp | build
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 build:
-	mkdir -p "online food order"
+	mkdir -p $@
 
 clean:
 	rm -rf build

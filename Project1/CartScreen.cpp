@@ -39,7 +39,7 @@ void cartScreen()
 				 << Screen::space(87) << "enter 1 to return to homescreen" << endl;
 
 			int choice;
-			while (!(cin >> choice))
+			while (!(cin >> choice) || (choice != 1))
 			{
 				cout << "Invalid input" << endl;
 				cin.clear();
@@ -49,11 +49,6 @@ void cartScreen()
 			{
 				homeScreen();
 			}
-			else
-			{
-				cout << "invalid input" << endl;
-			}
-			cout << "press any key to continue   " << choice << endl;
 		}
 	}
 	catch (string error)
