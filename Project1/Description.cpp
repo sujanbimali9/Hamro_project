@@ -27,7 +27,7 @@ void descripScreen(Product &data)
 	cout << endl;
 	cout << Screen::space(70) << "To go back Enter 0:" << endl;
 	cout << Screen::space(67) << "Buy Enter 1:\n";
-	while (!(cin >> userChoice))
+	while (!(cin >> userChoice) || (userChoice != 0 && userChoice != 1))
 	{
 		cout << "Invalid input" << endl;
 		cin.clear();
@@ -37,9 +37,17 @@ void descripScreen(Product &data)
 	if (userChoice == 1)
 	{
 		cout << "Enter the total quantity you want:\n";
-		while (!(cin >> Quantity))
+		while (!(cin >> Quantity) || (Quantity < 0 || Quantity > 100))
 		{
 			cout << "invalid input" << endl;
+			if (Quantity < 0)
+			{
+				cout << "Quantity cannot be negative" << endl;
+			}
+			else if (Quantity > 100)
+			{
+				cout << "Quantity cannot be more than 100" << endl;
+			}
 			cin.clear();
 			cin.ignore(100, '\n');
 		}
@@ -56,6 +64,8 @@ void descripScreen(Product &data)
 		try
 		{
 			orderFood(cart);
+			Screen::clrscr();
+			cout << Screen::space(20) << "Order placed successfully" << endl;
 			cin.get();
 			homeScreen();
 		}
@@ -63,7 +73,6 @@ void descripScreen(Product &data)
 		{
 			Screen::clrscr();
 			cout << Screen::space(20) << error << endl;
-			cout << "errorr" << endl;
 			cin.get();
 			homeScreen();
 		}
@@ -77,8 +86,6 @@ void descripScreen(Product &data)
 	}
 	else
 	{
-		cout << "Invalid input\n";
-		cin.get();
-		descripScreen(data);
+		homeScreen();
 	}
 }

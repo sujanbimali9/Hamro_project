@@ -2,6 +2,6 @@
 #define PASSWORD_H
 #include <string>
 
-std::string getPassword();
+void echo(bool enable);
 
 #endif

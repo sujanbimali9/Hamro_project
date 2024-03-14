@@ -15,7 +15,7 @@ SRCS = apis.cpp \
 
 
 OBJS = $(addprefix build/,$(SRCS:.cpp=.o))
-TARGET = build/apis
+TARGET = build/online_food_order
 
 all: $(TARGET)
 
@@ -26,7 +26,7 @@ build/%.o: %.cpp | build
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 build:
-	mkdir -p $@
+	mkdir -p "online food order"
 
 clean:
 	rm -rf build

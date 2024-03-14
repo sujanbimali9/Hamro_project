@@ -14,7 +14,6 @@ string userName;
 
 void loginDialog();
 void Signup();
-void Exit();
 bool checkCredentials(const string &username, const string &password);
 
 string generateUserId()
@@ -66,8 +65,9 @@ void loginDialog()
     };
     userName = username;
     cout << "Enter password: ";
-
-    password = getPassword();
+    echo(false);
+    cin >> password;
+    echo(true);
     if (checkCredentials(username, password))
     {
         cout << "Login successful." << endl;
@@ -92,8 +92,10 @@ void Signup()
     cin >> username;
 
     cout << "Enter password: ";
+    echo(false);
     cin >> password;
-
+    echo(true);
+    cout << endl;
     userName = username;
     userId = generateUserId();
     if (checkCredentials(username, password))
@@ -103,7 +105,16 @@ void Signup()
     }
     else
     {
-
+        cout << "comfirm password: ";
+        echo(false);
+        string conpassword;
+        cin >> conpassword;
+        echo(true);
+        if (conpassword != password)
+        {
+            cout << "password not matched" << endl;
+            Signup();
+        }
         ofstream outfile("user_data.txt", ios::app);
 
         if (outfile.is_open())
@@ -118,10 +129,8 @@ void Signup()
             cerr << "Error opening the file." << endl;
         }
     }
-    cout << "\n"
-         << endl;
-    cout << "\n"
-         << endl;
+    cout << endl;
+    cout << endl;
 }
 
 bool checkCredentials(const string &username, const string &password)
