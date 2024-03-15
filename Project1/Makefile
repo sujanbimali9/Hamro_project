@@ -3,15 +3,19 @@ CFLAGS = -I./curl/ -I./rapidjson/
 LDFLAGS = -L./curl/ -lcurl
 
 SRCS = apis.cpp \
-    ListData.cpp \
+    CartScreen.cpp \
+    Description.cpp \
+    HomeScreen.cpp \
+    Password.cpp \
     Login.cpp \
     Product.cpp \
     ProductCart.cpp \
     Response.cpp \
-    clear.cpp
+    Screen.cpp \
+
 
 OBJS = $(addprefix build/,$(SRCS:.cpp=.o))
-TARGET = build/apis
+TARGET = build/online_food_order
 
 all: $(TARGET)
 

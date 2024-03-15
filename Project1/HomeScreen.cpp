@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Product.h"
 #include "Screen.h"
 #include "apis.h"
@@ -6,6 +5,7 @@
 #include "CartScreen.h"
 #include "Login.h"
 
+#include <iostream>
 #include <vector>
 #include <string>
 
@@ -46,7 +46,7 @@ void show(int screen, vector<Product> product)
 		length = product.size() - 1;
 	}
 	for (int i = screen * 10; i <= length; i++)
-	{	
+	{
 		cout << Screen::space(50) << i + 1 << ". " << product[i].title << endl;
 		cout << Screen::space(59) << "Price: " << product[i].price << endl;
 		cout << Screen::space() << "Rating: " << product[i].rating << endl;
@@ -57,7 +57,12 @@ void show(int screen, vector<Product> product)
 	cout << Screen::space(90) << "Enter the number of the product for more details" << endl;
 
 	int choice;
-	cin >> choice;
+	while (!(cin >> choice))
+	{
+		cout << "Invalid input" << endl;
+		cin.clear();
+		cin.ignore(100, '\n');
+	};
 	if (choice == 0)
 	{
 		if ((screen + 1) * 10 < product.size())
@@ -75,14 +80,16 @@ void show(int screen, vector<Product> product)
 	{
 		cartScreen();
 	}
-	else if (choice == 1000) {
+	else if (choice == 1000)
+	{
 		main();
 	}
 	else
 	{
-		if (choice >= product.size())
+		if (choice > product.size())
 		{
 			cout << "invalid input" << endl;
+			cin.get();
 			show(screen, product);
 		}
 		else

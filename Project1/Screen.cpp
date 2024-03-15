@@ -14,7 +14,15 @@ void Screen::clrscr()
     system("clear");
 #endif
 };
+
+#ifdef _WIN32
 std::_Smanip<std::streamsize> Screen::space(int size)
 {
     return std::setw(size);
 }
+#else
+std::_Setw Screen::space(int size)
+{
+    return std::setw(size);
+}
+#endif
