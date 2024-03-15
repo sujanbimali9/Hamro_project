@@ -11,22 +11,22 @@
 
 using namespace std;
 
-void descripScreen(Product &data)
+void descripScreen(Product& data)
 {
 	Screen::clrscr();
 	cout << "\n\n\n\n\n\n";
-	cout << Screen::space(62) << data.title << endl;
-	cout << Screen::space(30) << ' ' << data.description << endl;
-	cout << Screen::space(60) << "Price: " << data.price << endl;
-	cout << Screen::space(61) << "Rating: " << data.rating << endl;
-	cout << Screen::space(67) << "Rating count: " << data.ratingCount << endl;
-	cout << Screen::space(90) << "--------------------------------------------------------" << endl;
+	cout << Screen::space() << data.title << endl;
+	cout << Screen::space(30) << data.description << endl;
+	cout << Screen::space() << "Price: " << data.price << endl;
+	cout << Screen::space() << "Rating: " << data.rating << endl;
+	cout << Screen::space() << "Rating count: " << data.ratingCount << endl;
+	cout << Screen::space(48) << string(40, '-') << endl;
 
 	int userChoice, Quantity;
 	string Address;
 	cout << endl;
-	cout << Screen::space(70) << "To go back Enter 0:" << endl;
-	cout << Screen::space(67) << "Buy Enter 1:\n";
+	cout << Screen::space(58) << "To go back Enter 0:" << endl;
+	cout << Screen::space(61) << "Buy Enter 1:\n";
 	while (!(cin >> userChoice) || (userChoice != 0 && userChoice != 1))
 	{
 		cout << "Invalid input" << endl;

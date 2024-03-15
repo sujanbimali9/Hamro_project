@@ -1,6 +1,5 @@
 CC = g++
-CFLAGS = -I./curl/ -I./rapidjson/
-LDFLAGS = -L./curl/ -lcurl
+CFLAGS = -I./httplib/ -I./rapidjson/
 
 SRCS = apis.cpp \
     CartScreen.cpp \
@@ -20,7 +19,7 @@ TARGET = build/online_food_order
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) -o $@ $(OBJS) $(LDFLAGS)
+	$(CC) -o $@ $(OBJS) 
 
 build/%.o: %.cpp | build
 	$(CC) -c $< -o $@ $(CFLAGS)

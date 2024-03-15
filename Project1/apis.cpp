@@ -1,187 +1,105 @@
-#define CURL_STATICLIB
-
 #include "apis.h"
 #include "Product.h"
 #include "ProductCart.h"
-#include "Response.h"
 
-#include <iostream>
-#include "curl/curl.h"
-#include <vector>
+#include "httplib/httplib.h"
+
 #include "rapidjson/document.h"
-#include <string>
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 
+#include <iostream>
+#include <vector>
+#include <string>
+
 using namespace std;
 
-int getData(std::vector<Product> &products);
-int getCart(std::string id, std::vector<ProductCart> &products);
-int orderFood(ProductCart &product);
-int parseProducts(Response response, std::vector<Product> &products);
-int parseProductsCart(Response response, std::vector<ProductCart> &products);
+int getData(std::vector<Product>& products);
+int getCart(std::string id, std::vector<ProductCart>& products);
+int orderFood(ProductCart& product);
+int parseProducts(string& response, std::vector<Product>& products);
+int parseProductsCart(string& response, std::vector<ProductCart>& products);
 
-static size_t write_callback(void *contents, size_t size, size_t nmemb, Response *response)
+int getData(vector<Product>& product)
 {
-    size_t total_size = size * nmemb;
-    response->appendData((char *)contents, total_size);
-    return total_size;
-}
+    httplib::Client client("localhost", 3000);
 
-int getData(vector<Product> &product)
-{
-    CURL *curl = curl_easy_init();
+    httplib::Result res = client.Get("/home");
 
-    if (curl)
+    if (!res)
     {
-        Response response;
-        curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/home");
 
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
-
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-
-        CURLcode res = curl_easy_perform(curl);
-
-        curl_easy_cleanup(curl);
-
-        if (res != CURLE_OK)
-        {
-            throw "error check your network conncetion and try again";
-            return 1;
-        }
-        else
-        {
-            parseProducts(response, product);
-            return 0;
-        }
+        throw string("error check your network conncetion and try again");
+        return 1;
     }
     else
     {
-        throw "curl not initialized properly";
-        return 1;
+        parseProducts(res->body, product);
+        return 0;
     }
 }
 
-int getCart(string id, vector<ProductCart> &product)
+int getCart(string id, vector<ProductCart>& product)
 {
-    CURL *curl = curl_easy_init();
+    httplib::Client client("localhost", 3000);
+    string url = "http://localhost:3000/get-order/" + id;
 
-    if (curl)
+    httplib::Result res = client.Get(url.c_str());
+
+    if (!res)
     {
-        string url = "http://localhost:3000/get-order/" + id;
-        Response response;
-        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
-
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-
-        CURLcode res = curl_easy_perform(curl);
-
-        curl_easy_cleanup(curl);
-
-        if (res == CURLE_URL_MALFORMAT)
-        {
-            throw "empty";
-        }
-        else if (res != CURLE_OK)
-        {
-            throw "error check your network conncetion and try again";
-            return 1;
-        }
-        else
-        {
-            parseProductsCart(response, product);
-            return 0;
-        }
+        throw string("Error: Failed to fetch data. Check your network connection and try again.");
+        return 1;
     }
     else
     {
-        throw "curl not initialized properly";
-        return 1;
+        parseProductsCart(res->body, product);
+        return 0;
     }
 }
 
-// int getCart(string id, vector<ProductCart>& product)
+//int getCart(string id, vector<ProductCart> &product)
 //{
-//     CURL* curl;
-//     curl = curl_easy_init();
-//     Response response;
-//     if (curl) {
-//         curl_easy_setopt(curl,CURLOPT_URL, "http://localhost:3000/get-order");
-//         string json = "{\"userid\": \"" + id + "\"}";
-
-//        curl_easy_setopt(curl, CURLOPT_POSTFIELDS,json.c_str());
-//        curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, json.length());
-//        struct curl_slist* headers = NULL;
-//        headers = curl_slist_append(headers, "Content-Type: application/json");
-//        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-//        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
-//        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-
-//        CURLcode res = curl_easy_perform(curl);
-
-//        curl_slist_free_all(headers);
-//        curl_easy_cleanup(curl);
-//        if (res != CURLE_OK) {
-//		 throw "error check your network conncetion and try again";
-//		 return 1;
-//	 }
-//        else {
-//		 parseProductsCart(response, product);
-//		 return 0;
-//	 }
+//    httplib::Client client("localhost", 3000);
+//    string url = "http://localhost:3000/get-order";
+//    string json = "{\"userid\": \"" + id + "\"}";
+//    httplib::Result res = client.Post(url, json.c_str(), "application/json");
+//
+//    if (!res)
+//    {
+//        throw string("error check your network conncetion and try again");
+//        return 1;
 //    }
-//    else {
-//        throw "curl not initialized properly";
+//    else
+//    {
+//        parseProductsCart(res->body, product);
 //        return 0;
 //    }
 //}
 
-int orderFood(ProductCart &product)
+int orderFood(ProductCart& product)
 {
-    CURL *curl;
-    curl = curl_easy_init();
-    string json = product.toJson();
+    httplib::Client client("localhost", 3000);
 
-    if (curl)
+    std::string json = product.toJson();
+
+    auto res = client.Post("/order-food", json, "application/json");
+
+    if (!res || res->status != 200)
     {
-        curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/order-food");
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json.c_str());
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, json.length());
-
-        struct curl_slist *headers = NULL;
-        headers = curl_slist_append(headers, "Content-Type: application/json");
-        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-
-        CURLcode res = curl_easy_perform(curl);
-
-        curl_slist_free_all(headers);
-
-        curl_easy_cleanup(curl);
-
-        if (res != CURLE_OK)
-        {
-            throw "check your network connection and try again";
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+        throw string("Error: Failed to send data to server. Check your network connection and try again.");
+        return 1;
     }
     else
     {
-        throw "curl not initialized properly";
-        return 1;
+        return 0;
     }
 }
 
-int parseProducts(Response response, vector<Product> &products)
+int parseProducts(string& response, vector<Product>& products)
 {
     rapidjson::Document doc;
-    doc.Parse(response.getData().c_str());
+    doc.Parse(response.c_str());
 
     if (!doc.IsArray())
     {
@@ -189,9 +107,9 @@ int parseProducts(Response response, vector<Product> &products)
         return 1;
     }
 
-    for (int i = 0; i < doc.Size(); ++i)
+    for (int i = 0; i < static_cast<int> (doc.Size()); ++i)
     {
-        const rapidjson::Value &productJson = doc[i];
+        const rapidjson::Value& productJson = doc[i];
 
         Product product;
         product.fromJson(productJson);
@@ -201,10 +119,10 @@ int parseProducts(Response response, vector<Product> &products)
     return 0;
 }
 
-int parseProductsCart(Response response, std::vector<ProductCart> &products)
+int parseProductsCart(string& response, std::vector<ProductCart>& products)
 {
     rapidjson::Document doc;
-    doc.Parse(response.getData().c_str());
+    doc.Parse(response.c_str());
 
     if (!doc.IsArray())
     {
@@ -212,9 +130,9 @@ int parseProductsCart(Response response, std::vector<ProductCart> &products)
         return 1;
     }
 
-    for (int i = 0; i < doc.Size(); ++i)
+    for (int i = 0; i < static_cast<int>(doc.Size()); ++i)
     {
-        const rapidjson::Value &productJson = doc[i];
+        const rapidjson::Value& productJson = doc[i];
 
         ProductCart product;
         product.fromJson(productJson);

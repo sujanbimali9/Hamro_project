@@ -22,21 +22,20 @@ void cartScreen()
 		}
 		else
 		{
-			cout << Screen::space(70) << "My Orders" << endl
-				 << endl;
+			cout << Screen::space(62) << "My Orders" << endl
+				<< endl;
 
 			for (int i = 0; i < productCart.size(); i++)
 			{
-				cout << Screen::space(56) << i + 1 << ". " << productCart[i].title << endl;
-				cout << Screen::space(68) << "Quantity: " << productCart[i].quantity << endl;
-				cout << Screen::space(74) << "Price per item: " << productCart[i].price << endl;
-				cout << Screen::space(67) << "Address: " << productCart[i].location << endl;
-				cout << Screen::space(71) << "Total Price: " << productCart[i].price * productCart[i].quantity << endl;
-				cout << Screen::space(71) << "Total Price: " << productCart[i].price * productCart[i].quantity << endl;
-				cout << Screen::space(89) << string(35, '-') << endl;
+				cout << Screen::space(57) << i + 1 << ". " << productCart[i].title << endl;
+				cout << Screen::space() << "Quantity: " << productCart[i].quantity << endl;
+				cout << Screen::space() << "Price per item: " << productCart[i].price << endl;
+				cout << Screen::space() << "Address: " << productCart[i].location << endl;
+				cout << Screen::space() << "Total Price: " << productCart[i].price * productCart[i].quantity << endl;
+				cout << Screen::space(48) << string(40, '-') << endl;
 			}
 			cout << "\n\n"
-				 << Screen::space(87) << "enter 1 to return to homescreen" << endl;
+				<< Screen::space(56) << "enter 1 to return to homescreen" << endl;
 
 			int choice;
 			while (!(cin >> choice) || (choice != 1))
@@ -53,10 +52,10 @@ void cartScreen()
 	}
 	catch (string error)
 	{
-		cout << error << endl;
+		cerr << error << endl;
 	}
 	catch (...)
 	{
-		cout << "error in getting cart" << endl;
+		cerr << "error in getting cart" << endl;
 	}
 }

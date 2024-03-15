@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
+#include <sstream>
 
 using namespace std;
 
@@ -14,12 +15,14 @@ string userName;
 
 void loginDialog();
 void Signup();
-bool checkCredentials(const string &username, const string &password);
+bool checkCredentials(const string& username, const string& password);
 
 string generateUserId()
 {
     time_t currentTime = time(nullptr);
-    return to_string(currentTime);
+    std::stringstream ss;
+    ss << currentTime;
+    return ss.str();
 }
 
 int main()
@@ -133,7 +136,7 @@ void Signup()
     cout << endl;
 }
 
-bool checkCredentials(const string &username, const string &password)
+bool checkCredentials(const string& username, const string& password)
 {
     string storedUsername, storedPassword, id;
     ifstream infile("user_data.txt");
