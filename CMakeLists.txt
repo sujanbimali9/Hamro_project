@@ -8,7 +8,21 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# List all your source files here
+
+set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake")
+set(VCPKG_TARGET_TRIPLET "x64-windows-static")
+
+foreach(flag_var
+    CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
+    
+    CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
+    if(${flag_var} MATCHES "/MD")
+        string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
+    endif()
+endforeach()
+
+
+# List of all source files 
 set(SOURCES
     Login.cpp
     apis.cpp
@@ -24,6 +38,7 @@ set(SOURCES
 
 # Include directory for RapidJSON
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/rapidjson)
+set(CMAKE_PREFIX_PATH "C:/vcpkg/installed/x64-windows-static/share/")
 
 # Create the executable with all source files
 add_executable(Hamro_project ${SOURCES})
@@ -42,10 +57,3 @@ target_link_libraries(Hamro_project PRIVATE cpr::cpr)
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     target_compile_options(Hamro_project PRIVATE "-O3" "-DNDEBUG")
 endif()
-
-
-# add_custom_target(run
-#     COMMAND ${PROJECT_NAME}
-#     DEPENDS ${PROJECT_NAME}
-#     WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
-# )
