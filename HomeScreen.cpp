@@ -5,6 +5,7 @@
 #include "CartScreen.h"
 #include "Login.h"
 
+#include <fmt/color.h>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -40,24 +41,27 @@ void homeScreen()
 void show(int screen, vector<Product> product)
 {
 	Screen::clrscr();
-	int length = screen * 10 + static_cast<int> (product.size()) % 10;
-	if (length >= static_cast<int> (product.size()))
+	fmt::print(fg(fmt::color::sea_green) | fmt::emphasis::bold, "{} Home \n\n", Screen::space(62));
+
+	int length = screen * 10 + static_cast<int>(product.size()) % 10;
+	if (length >= static_cast<int>(product.size()))
 	{
-		length = static_cast<int> (product.size()) - 1;
+		length = static_cast<int>(product.size()) - 1;
 	}
 	for (int i = screen * 10; i <= length; i++)
 	{
 		cout << Screen::space(57) << i + 1 << ". " << product[i].title << endl;
 		cout << Screen::space() << "Price: " << product[i].price << endl;
 		cout << Screen::space() << "Rating: " << product[i].rating << endl;
-		cout << Screen::space(50) << "-----------------------------------" << endl;
+		fmt::print(fg(fmt::color::green) | fmt::emphasis::bold, "{}-----------------------------------\n", Screen::space(50));
 	}
 	cout << "\n\n";
 	cout << Screen::space(44) << "For more enter '0' and to go to cart enter '100'" << endl;
 	cout << Screen::space(44) << "Enter the number of the product for more details" << endl;
 
 	int choice;
-	while (!(cin >> choice )  ||!((choice > screen && choice <= length+1) || choice == 0 || choice == 100 || choice == 1000)){
+	while (!(cin >> choice) || !((choice > screen && choice <= length + 1) || choice == 0 || choice == 100 || choice == 1000))
+	{
 		cout << "Invalid input" << endl;
 		cin.clear();
 		cin.ignore(100, '\n');

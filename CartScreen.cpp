@@ -4,6 +4,7 @@
 #include "HomeScreen.h"
 #include "Login.h"
 
+#include <fmt/color.h>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -16,14 +17,13 @@ void cartScreen()
 	vector<ProductCart> productCart;
 	try
 	{
-		if (getCart(userId, productCart))
+		if (getCart(user.getUserId(), productCart))
 		{
 			throw 1;
 		}
 		else
 		{
-			cout << Screen::space(62) << "My Orders" << endl
-				<< endl;
+			fmt::print(fg(fmt::color::sea_green) | fmt::emphasis::bold, "{}My Orders\n", Screen::space(62));
 
 			for (int i = 0; i < productCart.size(); i++)
 			{
@@ -35,7 +35,7 @@ void cartScreen()
 				cout << Screen::space(48) << string(40, '-') << endl;
 			}
 			cout << "\n\n"
-				<< Screen::space(56) << "enter 1 to return to homescreen" << endl;
+				 << Screen::space(56) << "enter 1 to return to homescreen" << endl;
 
 			int choice;
 			while (!(cin >> choice) || (choice != 1))
