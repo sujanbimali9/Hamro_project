@@ -11,3 +11,15 @@
 2	1952	1722272712314595421	CMakeFiles/Hamro_project.dir/CartScreen.cpp.o	7280284dc3c9e8f4
 3	1672	1722272712314595421	CMakeFiles/Hamro_project.dir/HomeScreen.cpp.o	d87a09513ebd79b0
 3232	3880	1722272715544542030	Hamro_project	15fe9c12b67ccf06
+1	8	1722273399924048386	clean	a31eedcededa8236
+3	878	1722273400084047333	CMakeFiles/Hamro_project.dir/Password.cpp.o	dcf003e766ae25a
+10	1027	1722273400090713956	CMakeFiles/Hamro_project.dir/Screen.cpp.o	427495023ffb6171
+16	1105	1722273400097380579	CMakeFiles/Hamro_project.dir/User.cpp.o	e85f2979705475e
+5	1107	1722273400087380645	CMakeFiles/Hamro_project.dir/Product.cpp.o	c0b1690034cd0840
+3	1292	1722273400084047333	CMakeFiles/Hamro_project.dir/Description.cpp.o	cf7ce49630d976c0
+6	1471	1722273400087380645	CMakeFiles/Hamro_project.dir/ProductCart.cpp.o	3edd8b5d1cdcfb16
+3	1575	1722273400084047333	CMakeFiles/Hamro_project.dir/HomeScreen.cpp.o	d87a09513ebd79b0
+2	1739	1722273400084047333	CMakeFiles/Hamro_project.dir/Login.cpp.o	31ffbdc1e569a665
+3	1874	1722273400084047333	CMakeFiles/Hamro_project.dir/CartScreen.cpp.o	7280284dc3c9e8f4
+3	2930	1722273400084047333	CMakeFiles/Hamro_project.dir/apis.cpp.o	a4e85caa0508eac0
+2930	3542	1722273403010694768	Hamro_project	15fe9c12b67ccf06

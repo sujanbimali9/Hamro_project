@@ -71,7 +71,6 @@ int login(User &user)
     else if (res.status_code != 200)
     {
         // throw string("error check your network conncetion and try again");
-        cout << res.text << endl;
         throw string(res.text);
         return 1;
     }
@@ -101,7 +100,7 @@ int getData(vector<Product> &product)
 
     if (res.status_code != 200)
     {
-        throw string("error check your network conncetion and try again");
+        throw string(res.text);
         return 1;
     }
     else
@@ -121,7 +120,7 @@ int getCart(int id, vector<ProductCart> &product)
             {"Authorization", bearer.c_str()}});
     if (res.status_code != 200)
     {
-        throw string("Error: Failed to fetch data. Check your network connection and try again.");
+        throw string(res.text);
         return 1;
     }
     else

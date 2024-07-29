@@ -78,11 +78,12 @@ void loginDialog()
         {
             cout << "Login successful." << endl;
             cout << "Press any key to continue..." << endl;
+            cin.get();
             homeScreen();
-            cout << user.getName() << endl;
-            cout << user.getEmail() << endl;
-            cout << user.getUserId() << endl;
-            cout << "password: " << endl;
+            // cout << user.getName() << endl;
+            // cout << user.getEmail() << endl;
+            // cout << user.getUserId() << endl;
+            // cout << "password: " << endl;
         }
         else
         {
@@ -132,13 +133,8 @@ void Signup()
         try
         {
             bool loggedin = false;
-            try
-            {
-                loggedin = checkCredentials(email, password);
-            }
-            catch (string &e)
-            {
-            }
+
+            loggedin = checkCredentials(email, password);
 
             if (loggedin)
             {
