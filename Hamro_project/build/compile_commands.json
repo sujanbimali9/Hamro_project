@@ -1,0 +1,56 @@
+[
+{
+  "directory": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/build",
+  "command": "/usr/bin/c++ -DCURL_STATICLIB -I/home/sujan/Documents/Hamro_project_cpr/Hamro_project/rapidjson -isystem /home/sujan/devtools/vcpkg/installed/x64-linux/include -g -std=c++17 -o CMakeFiles/Hamro_project.dir/Login.cpp.o -c /home/sujan/Documents/Hamro_project_cpr/Hamro_project/Login.cpp",
+  "file": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/Login.cpp",
+  "output": "CMakeFiles/Hamro_project.dir/Login.cpp.o"
+},
+{
+  "directory": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/build",
+  "command": "/usr/bin/c++ -DCURL_STATICLIB -I/home/sujan/Documents/Hamro_project_cpr/Hamro_project/rapidjson -isystem /home/sujan/devtools/vcpkg/installed/x64-linux/include -g -std=c++17 -o CMakeFiles/Hamro_project.dir/apis.cpp.o -c /home/sujan/Documents/Hamro_project_cpr/Hamro_project/apis.cpp",
+  "file": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/apis.cpp",
+  "output": "CMakeFiles/Hamro_project.dir/apis.cpp.o"
+},
+{
+  "directory": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/build",
+  "command": "/usr/bin/c++ -DCURL_STATICLIB -I/home/sujan/Documents/Hamro_project_cpr/Hamro_project/rapidjson -isystem /home/sujan/devtools/vcpkg/installed/x64-linux/include -g -std=c++17 -o CMakeFiles/Hamro_project.dir/CartScreen.cpp.o -c /home/sujan/Documents/Hamro_project_cpr/Hamro_project/CartScreen.cpp",
+  "file": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/CartScreen.cpp",
+  "output": "CMakeFiles/Hamro_project.dir/CartScreen.cpp.o"
+},
+{
+  "directory": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/build",
+  "command": "/usr/bin/c++ -DCURL_STATICLIB -I/home/sujan/Documents/Hamro_project_cpr/Hamro_project/rapidjson -isystem /home/sujan/devtools/vcpkg/installed/x64-linux/include -g -std=c++17 -o CMakeFiles/Hamro_project.dir/Description.cpp.o -c /home/sujan/Documents/Hamro_project_cpr/Hamro_project/Description.cpp",
+  "file": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/Description.cpp",
+  "output": "CMakeFiles/Hamro_project.dir/Description.cpp.o"
+},
+{
+  "directory": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/build",
+  "command": "/usr/bin/c++ -DCURL_STATICLIB -I/home/sujan/Documents/Hamro_project_cpr/Hamro_project/rapidjson -isystem /home/sujan/devtools/vcpkg/installed/x64-linux/include -g -std=c++17 -o CMakeFiles/Hamro_project.dir/HomeScreen.cpp.o -c /home/sujan/Documents/Hamro_project_cpr/Hamro_project/HomeScreen.cpp",
+  "file": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/HomeScreen.cpp",
+  "output": "CMakeFiles/Hamro_project.dir/HomeScreen.cpp.o"
+},
+{
+  "directory": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/build",
+  "command": "/usr/bin/c++ -DCURL_STATICLIB -I/home/sujan/Documents/Hamro_project_cpr/Hamro_project/rapidjson -isystem /home/sujan/devtools/vcpkg/installed/x64-linux/include -g -std=c++17 -o CMakeFiles/Hamro_project.dir/Password.cpp.o -c /home/sujan/Documents/Hamro_project_cpr/Hamro_project/Password.cpp",
+  "file": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/Password.cpp",
+  "output": "CMakeFiles/Hamro_project.dir/Password.cpp.o"
+},
+{
+  "directory": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/build",
+  "command": "/usr/bin/c++ -DCURL_STATICLIB -I/home/sujan/Documents/Hamro_project_cpr/Hamro_project/rapidjson -isystem /home/sujan/devtools/vcpkg/installed/x64-linux/include -g -std=c++17 -o CMakeFiles/Hamro_project.dir/Product.cpp.o -c /home/sujan/Documents/Hamro_project_cpr/Hamro_project/Product.cpp",
+  "file": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/Product.cpp",
+  "output": "CMakeFiles/Hamro_project.dir/Product.cpp.o"
+},
+{
+  "directory": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/build",
+  "command": "/usr/bin/c++ -DCURL_STATICLIB -I/home/sujan/Documents/Hamro_project_cpr/Hamro_project/rapidjson -isystem /home/sujan/devtools/vcpkg/installed/x64-linux/include -g -std=c++17 -o CMakeFiles/Hamro_project.dir/ProductCart.cpp.o -c /home/sujan/Documents/Hamro_project_cpr/Hamro_project/ProductCart.cpp",
+  "file": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/ProductCart.cpp",
+  "output": "CMakeFiles/Hamro_project.dir/ProductCart.cpp.o"
+},
+{
+  "directory": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/build",
+  "command": "/usr/bin/c++ -DCURL_STATICLIB -I/home/sujan/Documents/Hamro_project_cpr/Hamro_project/rapidjson -isystem /home/sujan/devtools/vcpkg/installed/x64-linux/include -g -std=c++17 -o CMakeFiles/Hamro_project.dir/Screen.cpp.o -c /home/sujan/Documents/Hamro_project_cpr/Hamro_project/Screen.cpp",
+  "file": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/Screen.cpp",
+  "output": "CMakeFiles/Hamro_project.dir/Screen.cpp.o"
+}
+]

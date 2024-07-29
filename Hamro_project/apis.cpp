@@ -20,22 +20,31 @@ int getCart(std::string id, std::vector<ProductCart> &products);
 int orderFood(ProductCart &product);
 int parseProducts(string &response, std::vector<Product> &products);
 int parseProductsCart(string &response, std::vector<ProductCart> &products);
-int login(string username, string password);
-int signup(string username, string password);
+void login(string username, string password);
+void signup(string username, string password);
 
-int signup(string username, string password)
+void signup(string username, string password)
 {
+    // cpr::Response res = cpr::Post(
+    //     cpr::Url{"https://fvodxcjsserxrwmxitdq.supabase.co/auth/v1/signup"},
+    //     cpr::Header({"apikey", apiKey}),
+    //     cpr::Body("{\"email\":\"" + username + "\",\"password\":\"" + password + "\"}"));
+
     cpr::Response res = cpr::Post(
         cpr::Url{"https://fvodxcjsserxrwmxitdq.supabase.co/auth/v1/signup"},
-        cpr::Header({"apikey", apiKey.c_str()}),
+        cpr::Header{{"apikey", apiKey}},
         cpr::Body("{\"email\":\"" + username + "\",\"password\":\"" + password + "\"}"));
 }
 
-int login(string username, string password)
+void login(string username, string password)
 {
+    // cpr::Response res = cpr::Post(
+    //     cpr::Url{"https://fvodxcjsserxrwmxitdq.supabase.co/auth/v1/token?grant_type=password"},
+    //     cpr::Header({"apikey", apiKey}),
+    //     cpr::Body("{\"email\":\"" + username + "\",\"password\":\"" + password + "\"}"));
     cpr::Response res = cpr::Post(
         cpr::Url{"https://fvodxcjsserxrwmxitdq.supabase.co/auth/v1/token?grant_type=password"},
-        cpr::Header({"apikey", apiKey.c_str()}),
+        cpr::Header{{"apikey", apiKey}},
         cpr::Body("{\"email\":\"" + username + "\",\"password\":\"" + password + "\"}"));
 }
 
@@ -45,13 +54,14 @@ int getData(vector<Product> &product)
         cpr::Url{"https://fvodxcjsserxrwmxitdq.supabase.co/rest/v1/foods?select=*"},
         cpr::Header{{
                         "apikey",
-                        apiKey.c_str(),
+                        apiKey,
                     },
                     {
                         "Authorization",
                         "Bearer " + apiKey,
                     }});
 
+    cout << res.status_code;
     if (res.status_code != 200)
     {
         throw string("error check your network conncetion and try again");
@@ -71,7 +81,7 @@ int getCart(string id, vector<ProductCart> &product)
         cpr::Url{url},
         cpr::Header{{
                         "apikey",
-                        apiKey.c_str(),
+                        apiKey,
                     },
                     {
                         "Authorization",

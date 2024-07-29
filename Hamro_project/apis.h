@@ -12,8 +12,8 @@ int orderFood(ProductCart &product);
 
 int getCart(std::string id, std::vector<ProductCart> &product);
 
-int login(std::string username, std::string password);
+void login(std::string username, std::string password);
 
-int signup(std::string username, std::string password);
+void signup(std::string username, std::string password);
 
 #endif
