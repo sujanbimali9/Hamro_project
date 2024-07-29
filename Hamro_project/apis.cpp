@@ -27,7 +27,7 @@ int signup(string username, string password)
 {
     cpr::Response res = cpr::Post(
         cpr::Url{"https://fvodxcjsserxrwmxitdq.supabase.co/auth/v1/signup"},
-        cpr::Header("apikey", apiKey.c_str()),
+        cpr::Header({"apikey", apiKey.c_str()}),
         cpr::Body("{\"email\":\"" + username + "\",\"password\":\"" + password + "\"}"));
 }
 
@@ -35,17 +35,25 @@ int login(string username, string password)
 {
     cpr::Response res = cpr::Post(
         cpr::Url{"https://fvodxcjsserxrwmxitdq.supabase.co/auth/v1/token?grant_type=password"},
-        cpr::Header("apikey", apiKey.c_str()),
+        cpr::Header({"apikey", apiKey.c_str()}),
         cpr::Body("{\"email\":\"" + username + "\",\"password\":\"" + password + "\"}"));
 }
 
 int getData(vector<Product> &product)
 {
-    cpr::Response res = cpr::Get(cpr::Url{"http://localhost:3000/home"});
+    cpr::Response res = cpr::Get(
+        cpr::Url{"https://fvodxcjsserxrwmxitdq.supabase.co/rest/v1/foods?select=*"},
+        cpr::Header{{
+                        "apikey",
+                        apiKey.c_str(),
+                    },
+                    {
+                        "Authorization",
+                        "Bearer " + apiKey,
+                    }});
 
     if (res.status_code != 200)
     {
-
         throw string("error check your network conncetion and try again");
         return 1;
     }
@@ -58,9 +66,17 @@ int getData(vector<Product> &product)
 
 int getCart(string id, vector<ProductCart> &product)
 {
-    string url = "http://localhost:3000/get-order/" + id;
-    cpr::Response res = cpr::Get(cpr::Url{url});
-
+    string url = "https://fvodxcjsserxrwmxitdq.supabase.co/rest/v1/orders?id=" + id;
+    cpr::Response res = cpr::Get(
+        cpr::Url{url},
+        cpr::Header{{
+                        "apikey",
+                        apiKey.c_str(),
+                    },
+                    {
+                        "Authorization",
+                        "Bearer " + apiKey,
+                    }});
     if (res.status_code != 200)
     {
         throw string("Error: Failed to fetch data. Check your network connection and try again.");
@@ -95,7 +111,13 @@ int orderFood(ProductCart &product)
 {
     std::string json = product.toJson();
 
-    cpr::Response res = cpr::Post(cpr::Url{"http://localhost:3000/order-food"}, cpr::Body{json}, cpr::Header{{"Content-Type", "application/json"}});
+    cpr::Response res = cpr::Post(
+        cpr::Url{"https://fvodxcjsserxrwmxitdq.supabase.co/rest/v1/orders"},
+        cpr::Body{json},
+        cpr::Header{
+            {"apikey", apiKey.c_str()},
+            {"Authorization", "Bearer " + apiKey},
+        });
 
     if (res.status_code != 200)
     {

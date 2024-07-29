@@ -17,6 +17,7 @@ void cartScreen()
 	vector<ProductCart> productCart;
 	try
 	{
+
 		if (getCart(userId, productCart))
 		{
 			throw 1;

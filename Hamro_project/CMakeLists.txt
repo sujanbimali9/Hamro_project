@@ -4,7 +4,7 @@ project(Hamro_project VERSION 0.1.0 LANGUAGES C CXX)
 include(CTest)
 enable_testing()
 
-set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake")
+set(CMAKE_TOOLCHAIN_FILE "/home/sujan/devtools/vcpkg/scripts/buildsystems/vcpkg.cmake")
 set(VCPKG_TARGET_TRIPLET "x64-windows-static")
 
 set(CMAKE_CXX_STANDARD 17)
@@ -38,7 +38,7 @@ set(SOURCES
 
 # Include directory for RapidJSON
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/rapidjson)
-set(CMAKE_PREFIX_PATH "C:/vcpkg/installed/x64-windows-static/share/")
+# set(CMAKE_PREFIX_PATH "C:/vcpkg/installed/x64-windows-static/share/")
 
 
 
