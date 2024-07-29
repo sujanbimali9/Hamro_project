@@ -5,7 +5,7 @@ include(CTest)
 enable_testing()
 
 set(CMAKE_TOOLCHAIN_FILE "/home/sujan/devtools/vcpkg/scripts/buildsystems/vcpkg.cmake")
-set(VCPKG_TARGET_TRIPLET "x64-windows-static")
+# set(VCPKG_TARGET_TRIPLET "x64-windows-static")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,14 +13,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 
 
-foreach(flag_var
-    CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
+# foreach(flag_var
+#     CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
     
-    CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
-    if(${flag_var} MATCHES "/MD")
-        string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
-    endif()
-endforeach()
+#     CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
+#     if(${flag_var} MATCHES "/MD")
+#         string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
+#     endif()
+# endforeach()
 
 
 # List of all source files 
@@ -57,9 +57,9 @@ target_link_libraries(Hamro_project PRIVATE fmt::fmt)
 target_link_libraries(Hamro_project PRIVATE cpr::cpr)
 
 
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    target_compile_options(Hamro_project PRIVATE "-O3" "-DNDEBUG")
-endif()
+# if(CMAKE_BUILD_TYPE STREQUAL "Release")
+#     target_compile_options(Hamro_project PRIVATE "-O3" "-DNDEBUG")
+# endif()
 
 
 # add_custom_target(run
