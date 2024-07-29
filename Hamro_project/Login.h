@@ -1,9 +1,9 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 #include <string>
+#include "User.h"
 
-extern std::string userId;
-extern std::string userName;
+extern User user;
 int main();
 
 #endif

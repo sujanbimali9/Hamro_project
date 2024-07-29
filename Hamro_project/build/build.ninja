@@ -289,6 +289,14 @@ build CMakeFiles/Hamro_project.dir/Screen.cpp.o: CXX_COMPILER__Hamro_project_uns
   OBJECT_DIR = CMakeFiles/Hamro_project.dir
   OBJECT_FILE_DIR = CMakeFiles/Hamro_project.dir
 
+build CMakeFiles/Hamro_project.dir/User.cpp.o: CXX_COMPILER__Hamro_project_unscanned_Debug /home/sujan/Documents/Hamro_project_cpr/Hamro_project/User.cpp || cmake_object_order_depends_target_Hamro_project
+  DEFINES = -DCURL_STATICLIB
+  DEP_FILE = CMakeFiles/Hamro_project.dir/User.cpp.o.d
+  FLAGS = -g -std=c++17
+  INCLUDES = -I/home/sujan/Documents/Hamro_project_cpr/Hamro_project/rapidjson -isystem /home/sujan/devtools/vcpkg/installed/x64-linux/include
+  OBJECT_DIR = CMakeFiles/Hamro_project.dir
+  OBJECT_FILE_DIR = CMakeFiles/Hamro_project.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Hamro_project
@@ -297,7 +305,7 @@ build CMakeFiles/Hamro_project.dir/Screen.cpp.o: CXX_COMPILER__Hamro_project_uns
 #############################################
 # Link the executable Hamro_project
 
-build Hamro_project: CXX_EXECUTABLE_LINKER__Hamro_project_Debug CMakeFiles/Hamro_project.dir/Login.cpp.o CMakeFiles/Hamro_project.dir/apis.cpp.o CMakeFiles/Hamro_project.dir/CartScreen.cpp.o CMakeFiles/Hamro_project.dir/Description.cpp.o CMakeFiles/Hamro_project.dir/HomeScreen.cpp.o CMakeFiles/Hamro_project.dir/Password.cpp.o CMakeFiles/Hamro_project.dir/Product.cpp.o CMakeFiles/Hamro_project.dir/ProductCart.cpp.o CMakeFiles/Hamro_project.dir/Screen.cpp.o | /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libfmtd.a /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libcpr.a /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libcurl-d.a /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libz.a /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libssl.a /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libcrypto.a
+build Hamro_project: CXX_EXECUTABLE_LINKER__Hamro_project_Debug CMakeFiles/Hamro_project.dir/Login.cpp.o CMakeFiles/Hamro_project.dir/apis.cpp.o CMakeFiles/Hamro_project.dir/CartScreen.cpp.o CMakeFiles/Hamro_project.dir/Description.cpp.o CMakeFiles/Hamro_project.dir/HomeScreen.cpp.o CMakeFiles/Hamro_project.dir/Password.cpp.o CMakeFiles/Hamro_project.dir/Product.cpp.o CMakeFiles/Hamro_project.dir/ProductCart.cpp.o CMakeFiles/Hamro_project.dir/Screen.cpp.o CMakeFiles/Hamro_project.dir/User.cpp.o | /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libfmtd.a /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libcpr.a /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libcurl-d.a /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libz.a /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libssl.a /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libcrypto.a
   FLAGS = -g
   LINK_LIBRARIES = /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libfmtd.a  /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libcpr.a  /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libcurl-d.a  /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libz.a  /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libssl.a  /home/sujan/devtools/vcpkg/installed/x64-linux/debug/lib/libcrypto.a  -ldl
   OBJECT_DIR = CMakeFiles/Hamro_project.dir

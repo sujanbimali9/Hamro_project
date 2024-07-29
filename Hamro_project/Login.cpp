@@ -1,29 +1,30 @@
 #include "HomeScreen.h"
 #include "Screen.h"
 #include "Password.h"
+#include "apis.h"
+#include "User.h"
 
 #include <string>
 #include <iostream>
 #include <fstream>
-// #include <ctime>
+#include <ctime>
 #include <sstream>
+#include <functional>
 
 using namespace std;
 
-string userId;
-string userName;
-
+User user;
 void loginDialog();
 void Signup();
-bool checkCredentials(const string &username, const string &password);
+bool checkCredentials(const string &email, const string &password);
+int hashPassword(string password);
 
-string generateUserId()
+int generateUserId()
 {
-    // time_t currentTime = time(nullptr);
-    // std::stringstream ss;
-    // ss << currentTime;
-    // return ss.str();
-    return "sujna";
+    time_t currentTime = time(nullptr);
+    std::stringstream ss;
+    ss << currentTime;
+    return std::stoi(ss.str());
 }
 
 int main()
@@ -60,29 +61,42 @@ void loginDialog()
 {
     string username, password;
 
-    cout << "Enter username: ";
+    cout << "Enter email: ";
     while (!(cin >> username))
     {
         cout << "Invalid input" << endl;
         cin.clear();
         cin.ignore(100, '\n');
     };
-    userName = username;
     cout << "Enter password: ";
     echo(false);
     cin >> password;
     echo(true);
-    if (checkCredentials(username, password))
+    try
     {
-        cout << "Login successful." << endl;
-        cout << "Press any key to continue..." << endl;
-        cin.get();
-        homeScreen();
+        if (checkCredentials(username, password))
+        {
+            cout << "Login successful." << endl;
+            cout << "Press any key to continue..." << endl;
+            homeScreen();
+            cout << user.getName() << endl;
+            cout << user.getEmail() << endl;
+            cout << user.getUserId() << endl;
+            cout << "password: " << endl;
+        }
+        else
+        {
+            Screen::clrscr();
+            cout << "\nInvalid username or password. Please try again." << endl;
+            cout << "\n\n";
+            cin.get();
+            loginDialog();
+        }
     }
-    else
+    catch (string &e)
     {
-        cout << "\nInvalid username or password. Please try again." << endl;
-        cout << "\n\n";
+        Screen::clrscr();
+        cout << e << endl;
         cin.get();
         loginDialog();
     }
@@ -90,7 +104,10 @@ void loginDialog()
 
 void Signup()
 {
-    string username, password;
+    string email, password, username;
+
+    cout << "Enter email: ";
+    cin >> email;
 
     cout << "Enter username: ";
     cin >> username;
@@ -100,61 +117,96 @@ void Signup()
     cin >> password;
     echo(true);
     cout << endl;
-    userName = username;
-    userId = generateUserId();
-    if (checkCredentials(username, password))
+    cout << "comfirm password: ";
+    echo(false);
+    string compassword;
+    cin >> compassword;
+    echo(true);
+    if (compassword != password)
     {
-        cout << "User already exists. Please login." << endl;
-        loginDialog();
+        cout << "password not matched" << endl;
+        Signup();
     }
     else
     {
-        cout << "comfirm password: ";
-        echo(false);
-        string conpassword;
-        cin >> conpassword;
-        echo(true);
-        if (conpassword != password)
+        try
         {
-            cout << "password not matched" << endl;
-            Signup();
-        }
-        ofstream outfile("user_data.txt", ios::app);
-
-        if (outfile.is_open())
-        {
-            outfile << userId << " " << username << " " << password << endl;
-            cout << "Signup successful. User data stored in 'user_data.txt'." << endl;
-            outfile.close();
-            homeScreen();
-        }
-        else
-        {
-            cerr << "Error opening the file." << endl;
-        }
-    }
-    cout << endl;
-    cout << endl;
-}
-
-bool checkCredentials(const string &username, const string &password)
-{
-    string storedUsername, storedPassword, id;
-    ifstream infile("user_data.txt");
-
-    if (infile.is_open())
-    {
-        while (infile >> id >> storedUsername >> storedPassword)
-        {
-            if (storedUsername == username && storedPassword == password)
+            bool loggedin = false;
+            try
             {
-                userId = id;
-                infile.close();
-                return true;
+                loggedin = checkCredentials(email, password);
+            }
+            catch (string &e)
+            {
+            }
+
+            if (loggedin)
+            {
+                Screen::clrscr();
+                cout << "User already exists. Please login." << endl;
+                loginDialog();
+            }
+            else
+            {
+                user.setEmail(email);
+                user.setUsername(username);
+                user.setPassword(hashPassword(password));
+                user.setUserId(generateUserId());
+
+                if (!signup(user))
+                {
+                    cout << "signed up successfully." << endl;
+                    cout << "Press any key to continue..." << endl;
+                    cin.get();
+                    homeScreen();
+                }
+                else
+                {
+                    cout << "User registration failed. Please try again." << endl;
+                    cin.get();
+                    Signup();
+                }
             }
         }
-        infile.close();
-    }
 
-    return false;
+        catch (string &e)
+        {
+            Screen::clrscr();
+            if (e == "Invalid login credentials")
+            {
+                cout << "Invalid email address or password" << endl;
+            }
+            else
+            {
+                cout << e << endl;
+            }
+            Signup();
+        }
+        cout << endl;
+        cout << endl;
+    }
+}
+
+bool checkCredentials(const string &email, const string &password)
+{
+    string storedUsername, storedPassword, id;
+
+    user.setEmail(email);
+    user.setPassword(hashPassword(password));
+
+    try
+    {
+        return !login(user);
+    }
+    catch (string &e)
+    {
+        throw e;
+        return false;
+    }
+}
+
+int hashPassword(string password)
+{
+    std::hash<std::string> hasher;
+    return static_cast<unsigned int>(hasher(password));
 }

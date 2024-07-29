@@ -17,8 +17,7 @@ void cartScreen()
 	vector<ProductCart> productCart;
 	try
 	{
-
-		if (getCart(userId, productCart))
+		if (getCart(user.getUserId(), productCart))
 		{
 			throw 1;
 		}

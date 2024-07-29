@@ -4,9 +4,10 @@
 #include <string>
 #include "rapidjson/document.h"
 
-class Product {
+class Product
+{
 public:
-    std::string id;
+    int id;
     std::string title;
     double price;
     std::string description;
@@ -15,7 +16,7 @@ public:
     double rating;
     int ratingCount;
 
-    void fromJson(const rapidjson::Value& productJson);
+    int fromJson(const rapidjson::Value &productJson);
 };
 
 #endif

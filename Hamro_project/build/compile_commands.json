@@ -52,5 +52,11 @@
   "command": "/usr/bin/c++ -DCURL_STATICLIB -I/home/sujan/Documents/Hamro_project_cpr/Hamro_project/rapidjson -isystem /home/sujan/devtools/vcpkg/installed/x64-linux/include -g -std=c++17 -o CMakeFiles/Hamro_project.dir/Screen.cpp.o -c /home/sujan/Documents/Hamro_project_cpr/Hamro_project/Screen.cpp",
   "file": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/Screen.cpp",
   "output": "CMakeFiles/Hamro_project.dir/Screen.cpp.o"
+},
+{
+  "directory": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/build",
+  "command": "/usr/bin/c++ -DCURL_STATICLIB -I/home/sujan/Documents/Hamro_project_cpr/Hamro_project/rapidjson -isystem /home/sujan/devtools/vcpkg/installed/x64-linux/include -g -std=c++17 -o CMakeFiles/Hamro_project.dir/User.cpp.o -c /home/sujan/Documents/Hamro_project_cpr/Hamro_project/User.cpp",
+  "file": "/home/sujan/Documents/Hamro_project_cpr/Hamro_project/User.cpp",
+  "output": "CMakeFiles/Hamro_project.dir/User.cpp.o"
 }
 ]

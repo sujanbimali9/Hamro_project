@@ -8,7 +8,7 @@ std::string ProductCart::toJson() const
     rapidjson::Writer<rapidjson::StringBuffer> writer(s);
     writer.StartObject();
     writer.Key("foodid");
-    writer.String(id.c_str());
+    writer.Int(id);
     writer.Key("title");
     writer.String(title.c_str());
     writer.Key("price");
@@ -26,7 +26,7 @@ std::string ProductCart::toJson() const
     writer.Key("quantity");
     writer.Int(quantity);
     writer.Key("userid");
-    writer.String(userid.c_str());
+    writer.Int(userid);
     writer.Key("name");
     writer.String(name.c_str());
     writer.Key("location");
@@ -39,7 +39,7 @@ std::string ProductCart::toJson() const
 
 void ProductCart::fromJson(const rapidjson::Value &productJson)
 {
-    id = productJson["foodid"].GetString();
+    id = productJson["foodid"].GetInt();
     title = productJson["title"].GetString();
     price = productJson["price"].GetDouble();
     description = productJson["description"].GetString();
@@ -47,14 +47,13 @@ void ProductCart::fromJson(const rapidjson::Value &productJson)
     image = productJson["image"].GetString();
     rating = productJson["rating"].GetDouble();
     ratingCount = productJson["ratingCount"].GetInt();
-    userid = productJson["userid"].GetString();
+    userid = productJson["userid"].GetInt();
     name = productJson["name"].GetString();
     location = productJson["location"].GetString();
     quantity = productJson["quantity"].GetInt();
 }
 
-ProductCart::ProductCart(const Product &product, int quantity, const std::string &userid, const std::string &location, const std::string &name)
+ProductCart::ProductCart(const Product &product, int quantity, const int &userid, const std::string &location, const std::string &name)
     : Product(product), quantity(quantity), userid(userid), location(location), name(name) {}
 
 ProductCart::ProductCart() : quantity(0) {}
-

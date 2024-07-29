@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void descripScreen(Product& data)
+void descripScreen(Product &data)
 {
 	Screen::clrscr();
 	cout << "\n\n\n\n\n\n";
@@ -60,7 +60,7 @@ void descripScreen(Product& data)
 			cin.ignore(100, '\n');
 		}
 
-		ProductCart cart(data, Quantity, userId, Address, userName);
+		ProductCart cart(data, Quantity, user.getUserId(), Address, user.getUsername());
 		try
 		{
 			orderFood(cart);
